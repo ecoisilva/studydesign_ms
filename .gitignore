@@ -41,9 +41,22 @@ vignettes/*.pdf
 
 # pkgdown site
 docs/
+/.quarto/
 
 # translation temp files
 po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# Big data
+data/simulated/
+
+# Documentation
+documentation/partials/
+*.docx
+
+# Logs
+cluster/logs/
+
+

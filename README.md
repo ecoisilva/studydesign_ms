@@ -1,1 +1,86 @@
-# studydesign
+
+# Too few, too many, or just right? Optimizing sample sizes for population-level inferences in animal tracking projects
+
+<!-- [![DOI](https://zenodo.org/badge/X.svg)](https://doi.org/XX) -->
+
+[![Project Status: Active – The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
+## Table of contents
+
+1.  [Introduction](#introduction)
+2.  [Citation](#citation)
+3.  [Tutorial](#tutorial)
+4.  [Directory structure](#directory-structure)
+5.  [Scripts description](#scripts-description)
+6.  [License](#license)
+
+## Introduction
+
+This repository is a companion piece to the manuscript **“Too few, too
+many, or just right? Optimizing sample sizes for population-level
+inferences in animal tracking projects”**, available soon as a preprint.
+<!-- Click [here](https://X) to download the full-text. -->
+
+## Citation
+
+If you use the data or code from this project, please cite it as
+follows:
+
+> Silva, I., Fleming, C. H., Noonan, M. J., Fagan, W. F., & Calabrese,
+> J. M. (2025). Too few, too many, or just right? Optimizing sample
+> sizes for population-level inferences in animal tracking projects.
+> BioRxiv <https://doi.org/XXX>
+
+## Tutorial
+
+The workflow presented in this manuscript is available within the
+[`movedesign`](https://github.com/ecoisilva/movedesign) `R` package.
+`movedesign` uses `R` language with `Shiny` for an easy-to-use user
+interface, and allows you to test different tracking schedules and
+*population* sample sizes, considering one or two research questions
+(home range and/or speed estimation). Check the tutorial
+[here](https://ecoisilva.github.io/studydesign_ms/documentation/tutorial_pop.html).
+
+## Directory structure
+
+    studydesign_ms/
+    │-- cluster/              # HPC bash files and scripts
+    │-- data/                 # Data files
+    │-- documentation/        # Tutorial and supplementary files
+    │-- figures/              # Generated figures
+    │-- outputs/              # Processed outputs
+    │-- R/                    # R scripts
+    │-- renv/                 # `renv` package management directory
+    │-- renv.lock             # Lock file for dependencies
+    │-- global.R              # Global settings and objects
+    │-- studydesign_ms.Rproj  # RStudio project file
+
+## Scripts description
+
+The :file_folder: **`cluster`** folder stores scripts for HPC jobs:
+
+- `cluster/create_job_sh.R`: generates job submission scripts.
+- `cluster/mean_hr.R`: runs simulations for mean home range.
+- `cluster/mean_speed.R`: runs simulations for mean movement speed.
+- `cluster/meta_resampled.R`: runs meta-analyses and resampling
+  approach.
+
+The :file_folder: **`R`** folder contains the other main scripts:
+
+- `R/plotting_case-study.R`: generates output plots for a case study.
+- `R/running_case-study_loocv.R`: runs LOOCV analyses.
+- `R/plotting_case-study_loocv.R`: generates LOOCV output plots for a
+  case study.
+- `R/plotting_case-study_resampled.R`: generates resample plots for a
+  case study.
+- `R/plotting_sims_resampled.R`: generates resample plots for the
+  simulations.
+
+The :file_folder: **`R/functions`** subfolder contains helper functions
+used throughout the project.
+
+## License
+
+##### CC-BY 4.0
