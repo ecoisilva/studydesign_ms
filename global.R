@@ -63,6 +63,11 @@ quiet(sapply(list.files(path = here::here("R", "functions"),
 
 pal <- load_pal()
 
+pal_error <- grDevices::colorRampPalette(c(
+  "#1F3545", "#00585A", "#1F7677", "#2E9597", "#4EA36E",
+  "#82A84D", "#EBB10C", "#F09F00", "#D67B00", "#C65906",
+  "#BF470A", "#B7350E", "#A72012", "#971E10", "#871C0F"))
+
 suppressMessages(extrafont::loadfonts(device = "win"))
 
 # Pre-defined values: -----------------------------------------------------
