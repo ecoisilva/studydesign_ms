@@ -1027,10 +1027,10 @@ set_theme <- function(ft_size = 13) {
         size = ft_size + 3, # face = 2,
         vjust = 1.2, hjust = 0, margin = margin(b = 2)),
       plot.subtitle = ggtext::element_markdown(
-        family = font_title, 
+        family = font_title,
         hjust = 0, margin = margin(b = 7)),
       plot.caption = ggtext::element_markdown(
-        size = ft_size - 4, margin = margin(t = 3)),
+        size = ft_size - 4, hjust = 1, margin = margin(t = 6)),
       
       panel.grid.major = ggplot2::element_line(
         color = "grey92", linewidth = 0.2),
@@ -1059,11 +1059,6 @@ set_theme <- function(ft_size = 13) {
         margin = margin(r = 5), angle = 90
       ),
       
-      legend.title = ggtext::element_markdown(
-        family = "Roboto Condensed SemiBold", # face = 2,
-        size = ft_size - 2 #,
-        # margin = margin(r = 6, b = 14)
-      ),
       legend.position = "bottom",
       plot.margin = ggplot2::unit(c(0.5, 0, 0.1, 0), "cm"))
 }
