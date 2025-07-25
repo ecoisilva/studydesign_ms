@@ -184,7 +184,13 @@ dat_mean <- dat |>
   set_theme(ft_size = 12) +
   ggplot2::theme(
     plot.title = ggtext::element_markdown(
-      size = 14, margin = ggplot2::margin(b = 5))) +
+      size = 14, margin = ggplot2::margin(b = 5)),
+    panel.grid.major = ggplot2::element_blank(),
+    panel.grid.minor = ggplot2::element_blank(),
+    panel.border = ggplot2::element_blank(),
+    legend.title = ggtext::element_markdown(
+      family = "Roboto Condensed SemiBold",
+      size = 10, margin = ggplot2::margin(r = 6, b = 0))) +
   ggplot2::guides(shape = "none", color = "none") )
 
 ggplot2::ggsave(

@@ -12,9 +12,9 @@ filenames <- c("buffalo_hr_dur1year_dti15minutes_8inds",
 files_raw <- .read_in_files(filenames)
 loocv_hr <- run_loocv(files_raw, filenames, set_target = "hr")
 
-filenames <- c("buffalo_speed_dti15minutes_dur1year_8inds",
-               "buffalo_speed_dti2hours_dur6years_8inds",
-               "buffalo_speed_dti1day_dur4years_20inds")
+filenames <- c("buffalo_ctsd_dti15minutes_dur1year_8inds",
+               "buffalo_ctsd_dti2hours_dur6years_8inds",
+               "buffalo_ctsd_dti1day_dur4years_20inds")
 files_raw <- .read_in_files(filenames)
 loocv_sd <- run_loocv(files_raw, filenames, set_target = "ctsd")
 

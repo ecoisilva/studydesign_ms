@@ -15,25 +15,24 @@ filenames <- list(
                  "buffalo_ctsd_dti2hours_dur2months_50inds",
                  "buffalo_ctsd_dti1hour_dur2months_50inds",
                  "buffalo_ctsd_dti30minutes_dur2months_50inds"),
-  
+
   gazelle_hr = c("gazelle_hr_dur2months_dti1hour_50inds",
                  "gazelle_hr_dur4months_dti1hour_50inds",
                  "gazelle_hr_dur1year_dti1hour_50inds",
                  "gazelle_hr_dur3years_dti1hour_50inds",
                  "gazelle_hr_dur9years_dti1hour_50inds"),
-  
-  gazelle_sd = c("gazelle_ctsd_dti4hours_dur3months_50inds",
-                 "gazelle_ctsd_dti3hours_dur3months_50inds",
-                 "gazelle_ctsd_dti2hours_dur3months_50inds",
-                 "gazelle_ctsd_dti1hour_dur3months_50inds",
-                 "gazelle_ctsd_dti30minutes_dur3months_50inds")
+
+  gazelle_sd = c("gazelle_ctsd_dti4hours_dur2months_50inds",
+                 "gazelle_ctsd_dti3hours_dur2months_50inds",
+                 "gazelle_ctsd_dti2hours_dur2months_50inds",
+                 "gazelle_ctsd_dti1hour_dur2months_50inds",
+                 "gazelle_ctsd_dti30minutes_dur2months_50inds")
 )
 
 rawfiles <- lapply(filenames, .read_in_files)
 
 # PROCESS RAW OUTPUTS: ----------------------------------------------------
 
-f <- 1
 groups <- names(filenames)
 
 for (group in groups) {
@@ -50,7 +49,7 @@ for (group in groups) {
     ( start_time <- Sys.time() )
     out <- run_meta(rawfiles[[group]][[f]], 
                     set_target = target,
-                    iter_step = 1)
+                    iter_step = iter_step)
     ( end_time <- Sys.time() - start_time )
     
     out$overlaps <- factor(
@@ -63,17 +62,17 @@ for (group in groups) {
         ggplot2::aes(x = m,
                      y = error,
                      group = type,
-                     color = overlaps)) +
-      
+                     color = abs(error))) +
+
       ggplot2::geom_hline(
         yintercept = error_threshold,
-        color = pal$sea, alpha = 0.5,
-        linetype = "dotted", linewidth = 0.7) +
+        alpha = 0.5,
+        linetype = "dotted", linewidth = 0.4) +
       ggplot2::geom_hline(
         yintercept = -error_threshold,
-        color = pal$sea, alpha = 0.5,
-        linetype = "dotted", linewidth = 0.7) +
-      
+        alpha = 0.5,
+        linetype = "dotted", linewidth = 0.4) +
+
       ggplot2::geom_hline(
         yintercept = 0,
         linewidth = 0.3,
@@ -83,28 +82,42 @@ for (group in groups) {
         ggplot2::aes(ymin = error_lci,
                      ymax = error_uci),
         show.legend = TRUE,
-        position = ggplot2::position_dodge(width = 0.4),
-        linewidth = 2.2, alpha = 0.3) +
-      ggplot2::geom_line(
-        position = ggplot2::position_dodge(width = 0.4),
-        show.legend = TRUE,
-        linewidth = 0.6, alpha = 0.5) +
+        linewidth = 2, alpha = 0.7) +
       ggplot2::geom_point(
-        position = ggplot2::position_dodge(width = 0.4),
         show.legend = TRUE,
         size = 2) +
       
       ggplot2::labs(
         x = "<i>Population</i> sample size, <i>m</i>",
         y = "Relative error (%)",
-        color = paste0("Within error threshold (\u00B1",
-                       error_threshold * 100, "%)?")) +
+        color = "Relative error (%)") +
       
-      ggplot2::scale_x_continuous(breaks = breaks_pretty()) +
-      ggplot2::scale_y_continuous(labels = scales::percent,
-                                  breaks = breaks_pretty()) +
-      ggplot2::scale_color_manual(values = pal_values, drop = FALSE) +
-      set_theme()
+      ggplot2::scale_x_continuous(
+        breaks = scales::breaks_pretty()) +
+      ggplot2::scale_y_continuous(
+        labels = scales::percent,
+        breaks = scales::breaks_pretty(),
+        limits = c(-1, 1)) +
+      ggplot2::scale_color_gradientn(
+        colors = pal_error(100),
+        labels = scales::percent,
+        limits = c(0, 1)) +
+      set_theme() +
+      ggplot2::theme(
+        panel.grid.major = ggplot2::element_blank(),
+        panel.grid.minor = ggplot2::element_blank(),
+        panel.border = ggplot2::element_blank(),
+        legend.title = ggtext::element_markdown(
+          family = "Roboto Condensed SemiBold",
+          size = 10, margin = ggplot2::margin(r = 6, b = 14)),
+        plot.margin = ggplot2::unit(c(1, 1, 1, 1), "cm")) +
+      ggplot2::guides(
+        color = ggplot2::guide_colorbar(
+          theme = ggplot2::theme(
+            legend.key.height = grid::unit(0.25, "cm"),
+            legend.key.width = grid::unit(4, "cm"),
+            legend.ticks = element_blank())))
+    print(p.optimal)
     
     filename <- filenames[[group]][[f]]
     
@@ -114,11 +127,11 @@ for (group in groups) {
                         paste0(filename, ".png")),
       bg = "white",
       width = 6, height = 5, 
-      dpi = 150, device = "png")
+      dpi = 600, device = "png")
     
-    base::saveRDS(
-      out, file = here::here("data", "processed",
-                             paste0(filename, ".rds")))
+    # base::saveRDS(
+    #   out, file = here::here("data", "processed",
+    #                          paste0(filename, ".rds")))
     
     message("...done!")
   }

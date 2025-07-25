@@ -55,7 +55,7 @@ sapply(list.files(path = paste0(repo, "/R/functions"),
   suppressWarnings() |>
   suppressMessages()
 
-# Run meta-analyses (combination testing): --------------------------------
+# Run meta-analyses (resampling): -----------------------------------------
 
 message("-------------------------------------------------")
 start_total <- Sys.time()

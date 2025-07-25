@@ -10,7 +10,6 @@ filenames <- c("buffalo_hr_dur1year_dti15minutes_8inds",
                "buffalo_hr_dur4years_dti1day_20inds")
 files_raw <- .read_in_files(filenames)
 filenames <- paste0(filenames, "_", max_samples, "samples")
-
 filenames <- paste0(filenames, "_", iter_step, "steps")
 
 nudge_y <- c(-0.05, -0.05, -0.05)

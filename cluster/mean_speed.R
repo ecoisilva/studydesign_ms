@@ -29,7 +29,7 @@ quiet <- function(x) {
 args <- commandArgs(trailingOnly = TRUE)
 get_species <- as.character(args[2])
 
-rv <- list(is_emulate = as.logical(args[8]),
+rv <- list(add_var = as.logical(args[8]),
            grouped = FALSE,
            set_analysis = "ctsd",
            data_type = "selected",
@@ -71,10 +71,10 @@ message("-------------------------------------------------")
 
 start_total <- Sys.time()
 message("- Start time: ", start_total)
-message("- Adding individual variation? ", rv$is_emulate)
+message("- Adding individual variation? ", rv$add_var)
 message("")
 
-add_text <- ifelse(rv$is_emulate, "", "_novar")
+add_text <- ifelse(rv$add_var, "", "_novar")
 filename_rds <- paste0(outputfolder,
                        get_species,
                        "_speed_",
@@ -93,7 +93,7 @@ fitList <- INPUT$fit
 rv$meanfitList <- list(mean(fitList))
 names(rv$meanfitList) <- "All"
 
-if (rv$is_emulate) {
+if (rv$add_var) {
   rv$tau_p <- extract_pars(rv$meanfitList, "position")
   rv$tau_v <- extract_pars(rv$meanfitList, "velocity")
   rv$sigma <- extract_pars(rv$meanfitList, "sigma")
