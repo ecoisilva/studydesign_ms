@@ -39,8 +39,6 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 
-# pkgdown site
-docs/
 /.quarto/
 
 # translation temp files
@@ -59,4 +57,6 @@ documentation/partials/
 # Logs
 cluster/logs/
 
+# Temp files
+scratch*
 
