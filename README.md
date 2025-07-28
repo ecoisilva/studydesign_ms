@@ -25,9 +25,6 @@ inferences in animal tracking projects”**, available soon as a preprint.
 
 ## Citation
 
-If you use the data or code from this project, please cite it as
-follows:
-
 > Silva, I., Fleming, C. H., Noonan, M. J., Fagan, W. F., & Calabrese,
 > J. M. (2025). Too few, too many, or just right? Optimizing sample
 > sizes for population-level inferences in animal tracking projects.
@@ -42,6 +39,32 @@ interface, and allows you to test different tracking schedules and
 *population* sample sizes, considering one or two research questions
 (home range and/or speed estimation). Check the tutorial
 [here](https://ecoisilva.github.io/studydesign_ms/documentation/tutorial_pop.html).
+
+To install the stable version of `movedesign` from CRAN:
+
+``` r
+install.packages("movedesign")
+```
+
+To install the most recent development version directly from GitHub:
+
+``` r
+install.packages("remotes")
+remotes::install_github("ecoisilva/movedesign")
+```
+
+To launch `movedesign`, load the library and run the following command
+in your `R` console:
+
+``` r
+library(movedesign)
+movedesign::run_app()
+```
+
+> Silva, I., Fleming, C. H., Noonan, M. J., Fagan, W. F., & Calabrese,
+> J. M. (2023). movedesign: Shiny R app to evaluate sampling design for
+> animal movement studies. Methods in Ecology and Evolution, 14(9),
+> 2216–2225. DOI: <https://doi.org/10.1111/2041-210X.14153>
 
 ## Directory structure
 
