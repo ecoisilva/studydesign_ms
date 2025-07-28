@@ -56,18 +56,16 @@ knitr::opts_chunk$set(
 
 This document describes in detail how to run the workflow presented in the manuscript, ***"Too few, too many, or just right? Optimizing sample sizes for population-level inferences in animal tracking projects"***, using the `movedesign` `R` package and Shiny application [@silva2023movedesign]. Preprint will be available on **BioRxiv** soon. For any definitions, check the main manuscript or the previous publication associated with this `R` package [@silva2023movedesign]. You will first need to install `movedesign`:
 
-```{r, eval = FALSE}
+```r
+# Stable version:
+install.packages("movedesign")
 
 # Development version:
 install.packages("remotes")
 remotes::install_github("ecoisilva/movedesign")
-
-# Stable version:
-install.packages("movedesign")
-
 ```
 
-We will outline the process by which we assess the impact of different sampling designs on common movement ecology metrics, *i.e.*, home range area and movement speed, for population-level inferences. All code has been executed in `R` version `r getRversion()` (R. Core Team, 2025), `ctmm` version `r packageVersion("ctmm")`, and `movedesign` version `r packageVersion("movedesign")`.
+We will outline the process by which we assess the impact of different sampling designs on common movement ecology metrics, *e.g.*, mean home range area and movement speed, for population-level inferences. All code has been executed in `R` version `r getRversion()` (R. Core Team, 2025), `ctmm` version `r packageVersion("ctmm")`, and `movedesign` version `r packageVersion("movedesign")`.
 
 *To cite this material:*
 
@@ -78,17 +76,16 @@ We will outline the process by which we assess the impact of different sampling 
 To begin, open `R` or `RStudio`, and run the following lines of code:
 
 ```{r, eval = FALSE}
-
 # Load the package and start the Shiny application:
 library(movedesign)
 movedesign::run_app() # will open the app
-
-
 ```
 
 This workflow is a simplified case study, designed for quick execution. We will use a GPS tracking dataset of African buffalos (*Syncerus caffer*) tracked in Kruger National Park between 2005 and 2006 [@cross2009], to inform our simulations. Our primary goal is to reliably estimate **mean home range area** of a population of African Buffalos.
 
 Similarly to the [single estimate](https://ecoisilva.github.io/movedesign/articles/movedesign.html) tutorial, we begin by selecting the appropriate workflow in the `r fa("house")` `Home` tab. Please check that vignette, as some information is omitted here to avoid repetition. In this tutorial, we will showcase a workflow for **deploying a set number of units**. 
+
+### Home
 
 ![](ext_images/tutorial2_img1.png){fig-align="center"} 
 
@@ -96,9 +93,7 @@ Similarly to the [single estimate](https://ecoisilva.github.io/movedesign/articl
 <!-- ## `r fontawesome::fa("bell", fill = "#ffffff")` Instructions -->
 <!-- ::: -->
 
-### Home
-
-Please choose `Select` as your data source to choose from a list of available species. Then, set `Home range` as your research target. For the analytical target, choose `Mean estimate of sampled population`. A new option will show up for deployment; please select the `"I plan to deploy a set number of VHF/GPS tags."` In addition, tick the `▢ Add individual variation` checkbox. This allows us to account for individual differences, rather than assuming all individuals behave identically.
+Please choose `Select` as your data source to choose from a list of available species. Then, set `Home range` as your research target. For the analytical target, choose `Mean estimate of sampled population`. A new option will show up for deployment; please select the `"I plan to deploy a set number of VHF/GPS tags."` In addition, tick the `▢ Add individual variation` checkbox. This allows us to account for individual variation, rather than assuming all individuals behave identically.
 
 ### Data
 
@@ -120,7 +115,7 @@ Proceed by clicking the `Extract` button. Upon successful extraction, the `Displ
 
 Next, we navigate to the `r fa("stopwatch", fill = "#009DA0")` `Sampling design` tab, where we input our sampling parameters. For this tutorial, we will consider the following sampling schedule: a ***sampling duration*** of `3 months`, with 12 new locations collected per day (***sampling interval*** of `2 hours`). To set this particular schedule, we ensure that `GPS/Satellite logger` is selected in the first dropdown menu, and untick the `Select from plot` checkbox in the `Device settings` box before proceeding, which will prompt us to manually input the sampling interval. Then, we set `GPS battery life` (equivalent to the maximum sampling duration) to `3 months` and `What sampling interval will you evaluate?` to `2 hours`. 
 
-We incorporate three additional components: **fix success rate** (here expected to be, on average, `85%`), reflecting the reliability of the GPS signal; **tag failure** (`5%` chance of a tag failing during data collection); and **location error** (averaging `15 meters`). Please Enable all three settings. At this point, we click the `Validate` button (verifying once again that it switches to `Validated!`) and, afterwards, the `Run` button.
+We incorporate three additional components: **fix success rate** (here expected to be, on average, `85%`), reflecting the reliability of the GPS signal; **deployment disruption** (`5%` chance of a tag failing during data collection); and **location error** (averaging `15 meters`). Please enable all three settings. At this point, we click the `Validate` button (verifying once again that it switches to `Validated!`) and, afterwards, the `Run` button.
 
 ![](ext_images/tutorial2_img4.png){fig-align="center"}
 
@@ -145,7 +140,7 @@ The first plot illustrates the relative error in **individual-level home range a
 
 The second plot illustrates how an increasing number of individuals (from a **population sample size** of `2` to a maximum of `20`) affects our population-level mean estimates. Each point represents the mean relative error (%) of this metric and its associated 95% confidence intervals, plotted against the number of tracked individuals. The dashed horizontal lines indicate a predefined error threshold of ±5%. An accompanying table provides detailed numerical values, as well as whether a sub-population was detected at each population sample size.
 
-To verify these outputs, we can resample through **combination testing** to assess the spread of estimates, randomly reassigning individuals into new sets and rerunning the estimation of population-level mean estimates multiple times.
+To verify these outputs, we can assess the spread of estimates by randomly reassigning individuals into new sets and rerunning the estimation of population-level means multiple times.
 
 ![](ext_images/tutorial2_img7.png){fig-align="center"}
 
