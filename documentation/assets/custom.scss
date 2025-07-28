@@ -111,12 +111,25 @@ p {
 $code-bg: #1e1e1e !default;
 $monokai-bg: #1e1e1e;
 
+
+pre.text,
+pre.sourceCode,
+.cell-output pre {
+  font-size: 0.775em;
+}
+
+pre > code.sourceCode > span {
+  color: #22394a; /* #708e04; */
+}
 code {
   font-family: $font-family-monospace !important;
-  color:  $sea3;
+  color: $sea3;
 }
 code span {
   color: $midnight;
+}
+code span.op {
+  color: #1A2D3A;
 }
 code span.co {
   color: #4a4a4a;
@@ -128,30 +141,28 @@ code span.fu {
   color: $sea2;
 }
 code span.cf {
-  color: #af7913;
+  color: #C65906;
 }
 code span.at {
   color: #000;
 }
 code span.dv {
-  color: #1a76a4;
+  color: #82A84D;
 }
 code span.cn {
   color: #739497;
 }
 code span.sc {
-  olor: #859517;
+  color: #859517;
 }
 code span.fl {
   color: #777;
 }
-
-pre.text, pre.sourceCode, .cell-output pre {
-  font-size: 0.775em;
+code span.va {
+  color: #4c8d16;
 }
-
-pre > code.sourceCode > span {
-  color: #708e04;
+code span.kw {
+  color: #2d2d2d;
 }
 
 .cell-output {
@@ -172,7 +183,7 @@ pre > code.sourceCode > span {
 }
 
 div.sourceCode {
-  background-color: #e6e6e6;
+  background-color: #eee;
   border: none;
   border-radius: .25rem;
 }
@@ -224,7 +235,7 @@ td code:not(.sourceCode) {
 }
 .sidebar nav[role=doc-toc] ul>li>a:hover,
 .sidebar nav[role=doc-toc] ul>li>ul>li>a:hover {
-  color: #708e04 !important;
+  color: #22394a !important;
 }
 
 .navbar .navbar-nav .show>.nav-link,
@@ -237,10 +248,22 @@ div.sidebar-item-container .sidebar-link>code{
 
 }
 
+.navbar .navbar-nav .nav-link.active,
+div.sidebar-item-container .active,
+div.sidebar-item-container .show > .nav-link, 
+div.sidebar-item-container .sidebar-link > code {
+  color: #fff !important;
+}
+
 .navbar .navbar-nav .nav-link:hover,
 .navbar .navbar-brand:hover {
- color: $sea1 !important;
+ color: #22394a !important;
 }
+.navbar .navbar-nav .nav-link.active:hover {
+  color: #22394a;
+}
+
+
 
 // Footer
 
