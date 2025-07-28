@@ -41,12 +41,6 @@ if (!requireNamespace("movedesign", quietly = TRUE)) {
   library("movedesign")
 }
 
-# write.table(packageList, "packages_used.csv",
-#             append = FALSE,
-#             row.names	= FALSE,
-#             col.names = FALSE,
-#             sep = ",")
-
 rm(packageList, packageList_new)
 
 # Functions: --------------------------------------------------------------
