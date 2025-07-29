@@ -7,22 +7,6 @@
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
-The main workflow presented in the manuscript provides a comprehensive
-approach for optimizing sample sizes in animal tracking studies,
-balancing *sampling duration*, *sampling interval*, and the *number of
-sampled individuals* to ensure robust, unbiased population-level
-inferences. By integrating robust, sampling-insensitive analytical
-methods and accounting for uncertainty and logistical constraints
-(including fix success, location error, device malfunctions, and
-individual variation), this workflow guides researchers in designing
-effective studies or evaluating existing data.
-
-The workflow has been fully implemented in the `movedesign` Shiny
-application and `R` package (<https://github.com/ecoisilva/movedesign>),
-allowing users to easily test sampling strategies and assess the
-reliability of space-use and movement metrics, ultimately promoting more
-rigorous and impactful wildlife research and conservation.
-
 ## Table of contents
 
 1.  [Introduction](#introduction)
@@ -38,6 +22,22 @@ This repository is a companion piece to the manuscript **“Too few, too
 many, or just right? Optimizing sample sizes for population-level
 inferences in animal tracking projects”**, available soon as a preprint.
 <!-- Click [here](https://X) to download the full-text. -->
+
+The main workflow presented in the manuscript provides a comprehensive
+approach for optimizing sample sizes in animal tracking studies,
+balancing *sampling duration*, *sampling interval*, and the *number of
+sampled individuals* to ensure robust, unbiased population-level
+inferences. By integrating robust, sampling-insensitive analytical
+methods and accounting for uncertainty and logistical constraints
+(including fix success, location error, device malfunctions, and
+individual variation), this workflow guides researchers in designing
+effective studies or evaluating existing data.
+
+The workflow has been fully implemented in the `movedesign` Shiny
+application and `R` package (<https://github.com/ecoisilva/movedesign>),
+allowing users to easily test sampling strategies and assess the
+reliability of space-use and movement metrics, ultimately promoting more
+rigorous and impactful wildlife research and conservation.
 
 ## Citation
 
