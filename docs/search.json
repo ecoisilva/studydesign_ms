@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "documentation/about.html#table-of-contents",
+    "href": "documentation/about.html#table-of-contents",
+    "title": "Too few, too many, or just right? Optimizing sample sizes for population-level inferences in animal tracking projects",
+    "section": "Table of contents",
+    "text": "Table of contents\n\nIntroduction\nCitation\nTutorial\nDirectory structure\nScripts description\nLicense"
+  },
+  {
+    "objectID": "documentation/about.html#introduction",
+    "href": "documentation/about.html#introduction",
+    "title": "Too few, too many, or just right? Optimizing sample sizes for population-level inferences in animal tracking projects",
+    "section": "Introduction",
+    "text": "Introduction\nThis repository is a companion piece to the manuscript “Too few, too many, or just right? Optimizing sample sizes for population-level inferences in animal tracking projects”, available soon as a preprint. \nThe main workflow presented in the manuscript provides a comprehensive approach for optimizing sample sizes in animal tracking studies, balancing sampling duration, sampling interval, and the number of sampled individuals to ensure robust, unbiased population-level inferences. By integrating robust, sampling-insensitive analytical methods and accounting for uncertainty and logistical constraints (including fix success, location error, device malfunctions, and individual variation), this workflow guides researchers in designing effective studies or evaluating existing data.\nThe workflow has been fully implemented in the movedesign Shiny application and R package (https://github.com/ecoisilva/movedesign), allowing users to easily test sampling strategies and assess the reliability of space-use and movement metrics, ultimately promoting more rigorous and impactful wildlife research and conservation."
+  },
+  {
+    "objectID": "documentation/about.html#citation",
+    "href": "documentation/about.html#citation",
+    "title": "Too few, too many, or just right? Optimizing sample sizes for population-level inferences in animal tracking projects",
+    "section": "Citation",
+    "text": "Citation\n\nSilva, I., Fleming, C. H., Noonan, M. J., Fagan, W. F., & Calabrese, J. M. (2025). Too few, too many, or just right? Optimizing sample sizes for population-level inferences in animal tracking projects. BioRxiv https://doi.org/XXX"
+  },
+  {
+    "objectID": "documentation/about.html#tutorial",
+    "href": "documentation/about.html#tutorial",
+    "title": "Too few, too many, or just right? Optimizing sample sizes for population-level inferences in animal tracking projects",
+    "section": "Tutorial",
+    "text": "Tutorial\nThe workflow presented in this manuscript is available within the movedesign R package. movedesign uses R language with Shiny for an easy-to-use user interface, and allows you to test different tracking schedules and population sample sizes, considering one or two research questions (home range and/or speed estimation). Check the tutorial here.\nTo install the stable version of movedesign from CRAN:\ninstall.packages(\"movedesign\")\nTo install the most recent development version directly from GitHub:\ninstall.packages(\"remotes\")\nremotes::install_github(\"ecoisilva/movedesign\")\nTo launch movedesign, load the library and run the following command in your R console:\nlibrary(movedesign)\nmovedesign::run_app()\n\nSilva, I., Fleming, C. H., Noonan, M. J., Fagan, W. F., & Calabrese, J. M. (2023). movedesign: Shiny R app to evaluate sampling design for animal movement studies. Methods in Ecology and Evolution, 14(9), 2216–2225. DOI: https://doi.org/10.1111/2041-210X.14153"
+  },
+  {
+    "objectID": "documentation/about.html#directory-structure",
+    "href": "documentation/about.html#directory-structure",
+    "title": "Too few, too many, or just right? Optimizing sample sizes for population-level inferences in animal tracking projects",
+    "section": "Directory structure",
+    "text": "Directory structure\nstudydesign_ms/\n│-- cluster/              # HPC bash files and scripts\n│-- data/                 # Data files\n│-- documentation/        # Tutorial and supplementary files\n│-- figures/              # Generated figures\n│-- outputs/              # Processed outputs\n│-- R/                    # R scripts\n│-- renv/                 # 'renv' package management directory\n│-- renv.lock             # Lock file for dependencies\n│-- global.R              # Global settings and objects\n│-- studydesign_ms.Rproj  # RStudio project file"
+  },
+  {
+    "objectID": "documentation/about.html#scripts-description",
+    "href": "documentation/about.html#scripts-description",
+    "title": "Too few, too many, or just right? Optimizing sample sizes for population-level inferences in animal tracking projects",
+    "section": "Scripts description",
+    "text": "Scripts description\nThe cluster folder stores scripts for HPC jobs:\n\n\ncluster/create_job_sh.R: generates job submission scripts.\n\ncluster/mean_hr.R: runs simulations for mean home range.\n\ncluster/mean_speed.R: runs simulations for mean movement speed.\n\ncluster/meta_resampled.R: runs meta-analyses and resampling approach.\n\nThe R folder contains the other main scripts:\n\n\nR/plotting_case-study.R: generates output plots for a case study.\n\nR/running_case-study_loocv.R: runs LOOCV analyses.\n\nR/plotting_case-study_loocv.R: generates LOOCV output plots for a case study.\n\nR/plotting_case-study_resampled.R: generates resample plots for a case study.\n\nR/plotting_sims_resampled.R: generates resample plots for the simulations.\n\nThe R/functions subfolder contains helper functions used throughout the project."
+  },
+  {
+    "objectID": "documentation/about.html#license",
+    "href": "documentation/about.html#license",
+    "title": "Too few, too many, or just right? Optimizing sample sizes for population-level inferences in animal tracking projects",
+    "section": "License",
+    "text": "License\nCC-BY 4.0"
+  }
+]
