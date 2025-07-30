@@ -81,7 +81,7 @@ for (f in seq_along(filenames)) {
   files_to_copy[[f]] <- output_filename
   
   ( start_time <- Sys.time() )
-  out <- run_meta_resampled(input_file,
+  out <- run_meta_resamples(input_file,
                             set_target = target,
                             random = TRUE,
                             max_samples = max_samples,
