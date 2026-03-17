@@ -20,6 +20,7 @@
 
 # RStudio files
 .Rproj.user/
+*.Rproj
 
 # produced vignettes
 vignettes/*.html
@@ -60,3 +61,5 @@ cluster/logs/
 # Temp files
 scratch*
 presentation/
+
+**/*.quarto_ipynb
