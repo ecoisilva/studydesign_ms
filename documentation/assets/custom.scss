@@ -1,6 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+ --cl-sea:         #009da0;
+ --cl-sea-dark:    #007d80;
+ --cl-sea-night:   #00585A;
+ --cl-midnight:    #162530;
+ 
+ --cl-grey-light:  #f0f5f5;
+ --cl-grey:        #4a4a4a;
+      
+ --cl-ivory:       #faf7f2;
+ --cl-ivory-dark:  #f0ebe0;
+      
+ --designA:        #708e04;
+ --designA-light:  #eef5d7;
+ --designA-dark:   #455703;
+      
+ --designB:        #007d80;
+ --designB-light:  #e1f2f2;
+ --designB-dark:   #00585A;
+      
+ --font-body:      'Quicksand', sans;
+ --font-serif:     'Barlow', serif !default;
+ --font-mono:      'JetBrains Mono', 'Fira Code', monospace;
+}
 
 /*-- scss:defaults --*/
+
+// Fonts
+
+$font-family-monospace: "JetBrains Mono", sans-serif !default;
+$font-family-sans-serif: "Fira Sans Condensed", sans-serif !default;
+$font-family-serif: "Barlow", serif !default;
 
 // Custom color palette
 
@@ -34,11 +65,6 @@ $danger:        $red1   !default;
 $light:         #f8f9fa !default;
 $dark:          #212529 !default;
 
-// Fonts
-
-$font-family-monospace: "JetBrains Mono", sans-serif !default;
-$font-family-sans-serif: "Fira Sans Condensed", sans-serif !default;
-$font-family-serif: "Barlow", serif !default;
 
 // Base font sizes and heading scale
 
@@ -85,10 +111,19 @@ div.callout-tip.callout {
 
 // Titles & headers
 
-#title-block-header.quarto-title-block.default .description > p,
 #title-block-header.quarto-title-block.default .abstract > p {
+  font-family: "Barlow", serif;
   font-weight: bold;
-  font-family: $font-family-sans-serif;
+}
+
+header.quarto-title-block.default .description > p {
+  font-family: "Barlow", serif;
+  font-weight: 500;
+}
+
+h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
+  font-family: "Barlow", serif;
+  font-weight: 500;
 }
 
 h2 {
@@ -110,7 +145,6 @@ p {
 
 $code-bg: #1e1e1e !default;
 $monokai-bg: #1e1e1e;
-
 
 pre.text,
 pre.sourceCode,
@@ -263,7 +297,10 @@ div.sidebar-item-container .sidebar-link > code {
   color: #22394a;
 }
 
-
+.navbar-brand {
+font-family: "Barlow", serif;
+  font-size: 1rem;
+}
 
 // Footer
 
@@ -330,4 +367,235 @@ ol {
 
 .quarto-appendix-contents div.hanging-indent div.csl-entry {
   margin-top: 0.5em;
+}
+
+
+/* -- Quotes and Annotations ------------------- */
+  
+  .quotes {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--cl-grey);
+    border-left: 3px solid var(--cl-sea-dark);
+    padding-left: 1.25rem;
+    margin: 1.5rem 0 2rem;
+    line-height: 1.5;
+  }
+
+.annotation {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+  padding: 1rem 1.2rem;
+  background: var(--cl-ivory-dark);
+  border-radius: 4px;
+  /* font-size: 0.875rem; */
+    line-height: 1.55;
+  text-align: justify;
+}
+
+.annotation-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+
+/* -- Workflow steps --------------------------- */
+  
+  .pipeline-vertical {
+    position: relative;
+    max-width: 520px;
+    margin: 0.2rem 0 0.2rem 1.5rem;
+  }
+
+.pipeline-vertical::before {
+  content: '';
+  position: absolute;
+  left: 1.04rem;
+  top: 1.05rem;
+  bottom: 1.05rem;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--green-pale) 8%,
+    var(--green-pale) 92%,
+    transparent
+  );
+}
+
+.pipeline-v-step {
+  display: grid;
+  grid-template-columns: 2.1rem 1fr;
+  gap: 0 1.4rem;
+  position: relative;
+  cursor: default;
+}
+
+.pipeline-v-num {
+  width: 2.1rem;
+  height: 2.1rem;
+  background: var(--cl-midnight);
+  color: rgba(255,255,255,0.92);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+  box-shadow:
+    0 0 0 3px var(--cl-grey-light),
+  0 0 0 4.5px rgba(212, 232, 219, 0.7);
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.pipeline-v-step:hover .pipeline-v-num {
+  background: var(--cl-sea);
+  box-shadow:
+    0 0 0 3px var(--cl-grey-light),
+  0 0 0 4.5px var(--cl-sea),
+  0 4px 14px rgba(74, 140, 98, 0.3);
+}
+
+.pipeline-v-content {
+  padding: 0.1rem 0 2.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.pipeline-v-step:last-child .pipeline-v-content {
+  padding-bottom: 0;
+}
+
+.pipeline-v-fn {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--cl-sea-night);
+  font-weight: 500;
+  background: white;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.22rem 0.7rem;
+  border-radius: 4px;
+  border: 1px solid var(--cl-grey-light);
+  width: fit-content;
+  transition: all 0.2s ease;
+  letter-spacing: 0.01em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.pipeline-v-step:hover .pipeline-v-fn {
+  border-color: var(--cl-sea);
+  background: var(--cl-sea);
+  color: #ffffff;
+    box-shadow: 0 2px 8px rgba(45, 90, 61, 0.1);
+}
+
+.pipeline-v-label {
+  /* font-size: 0.88rem; */
+    color: var(--cl-grey);
+  line-height: 1.5;
+  /* font-family: var(--font-body); */
+    /* font-weight: 300; */
+    /* font-style: italic; */
+}
+
+a.pipeline-v-fn {
+  text-decoration: none;
+}
+
+/* -- Design comparison cards ------------------ */
+  
+  .design-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin: 1.5rem 0 2rem;
+  }
+
+.design-card {
+  background: white;
+  border: 1px solid var(--cl-ivory);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.design-card-header {
+  padding: 0.85rem 1.2rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.design-card-header.design-a {
+  background: var(--designA);
+  color: white; }
+.design-card-header.design-b {
+  background: var(--designB);
+  color: white; }
+
+.design-card-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.2);
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+}
+
+.design-card-body {
+  padding: 1rem 1.2rem;
+}
+
+.design-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--cl-ivory);
+  font-size: 0.875rem;
+}
+
+.design-stat:last-child { border-bottom: none; }
+
+.design-stat-label {
+  color: var(--cl-grey);
+  font-size: 0.8rem;
+}
+
+.design-stat-value {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--cl-midnight);
+  font-size: 0.85rem;
+}
+
+.design-tradeoff {
+  margin-top: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  font-style: italic;
+  line-height: 1.45;
+}
+
+.design-tradeoff.tradeoff-a {
+  background: var(--designA-light);
+  color: var(--designA-dark);
+  border-left: 3px solid var(--designA);
+}
+
+.design-tradeoff.tradeoff-b {
+  background: var(--designB-light);
+  color: var(--designB-dark);
+  border-left: 3px solid var(--designB);
 }
