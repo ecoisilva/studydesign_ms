@@ -44,8 +44,6 @@ svg {
 
 ```{r, include = FALSE}
 
-library(movedesign)
-library(ctmm)
 library(fontawesome)
 
 knitr::opts_chunk$set(
