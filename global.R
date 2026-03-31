@@ -21,6 +21,7 @@ packageList <- c("remotes",
                  "png",
                  "grid",
                  "ctmm",
+                 "movedesign",
                  "hrbrthemes",
                  "viridis",
                  "bayestestR",
@@ -34,14 +35,13 @@ packageList_new <- packageList[!(
 if (length(packageList_new)) install.packages(packageList_new)
 sapply(packageList, library,
        character.only = TRUE, logical.return = TRUE)
+rm(packageList, packageList_new)
 
 if (!requireNamespace("movedesign", quietly = TRUE)) {
   remotes::install_github("ecoisilva/movedesign")
 } else {
   library("movedesign")
 }
-
-rm(packageList, packageList_new)
 
 # Functions: --------------------------------------------------------------
 
@@ -51,9 +51,10 @@ quiet <- function(x) {
   invisible(force(x))
 }
 
-quiet(sapply(list.files(path = here::here("R", "functions"),
-                        pattern = ".R",
-                        full.names = TRUE), source))
+quiet(sapply(
+  list.files(path = here::here("R", "functions"),
+             pattern = ".R",
+             full.names = TRUE), source))
 
 pal <- load_pal()
 
