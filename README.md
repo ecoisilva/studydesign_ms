@@ -28,11 +28,12 @@ The main workflow presented in the manuscript provides a comprehensive
 approach for optimizing sample sizes in animal tracking studies,
 balancing *sampling duration*, *sampling interval*, and the *number of
 sampled individuals* to ensure robust, unbiased population-level
-inferences. By integrating robust, sampling-insensitive analytical
-methods and accounting for uncertainty and logistical constraints
-(including fix success, location error, device malfunctions, and
-individual variation), this workflow guides researchers in designing
-effective studies or evaluating existing data.
+inferences for home range, and speed & distance estimation. By
+integrating robust, sampling-insensitive analytical methods and
+accounting for uncertainty and logistical constraints (including fix
+success, location error, device malfunctions, and individual variation),
+this workflow guides researchers in designing effective studies or
+evaluating existing data.
 
 The workflow has been fully implemented in the `movedesign` Shiny
 application and `R` package, allowing users to easily test sampling
