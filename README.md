@@ -22,7 +22,7 @@ This repository is a companion piece to the manuscript **“Too few, too
 many, or just right? Optimizing sample sizes for population-level
 inferences in animal tracking projects”**, currently available as a
 preprint
-[here](https://www.biorxiv.org/content/10.1101/2025.07.30.667390v1).
+[here](https://www.biorxiv.org/content/10.1101/2025.07.30.667390v2).
 
 The main workflow presented in the manuscript provides a comprehensive
 approach for optimizing sample sizes in animal tracking studies,
@@ -36,26 +36,14 @@ this workflow guides researchers in designing effective studies or
 evaluating existing data.
 
 The workflow has been fully implemented in the `movedesign` Shiny
-application and `R` package, allowing users to easily test sampling
-strategies and assess the reliability of space-use and movement metrics,
-ultimately promoting more rigorous and impactful wildlife research and
-conservation.
-
-## Citation
-
-> Silva, I., Fleming, C. H., Noonan, M. J., Fagan, W. F., & Calabrese,
-> J. M. (2025). Too few, too many, or just right? Optimizing sample
-> sizes for population-level inferences in animal tracking projects.
-> BioRxiv <https://doi.org/10.1101/2025.07.30.667390>
+application and `R` package, available on
+[CRAN](https://cran.r-project.org/web/packages/movedesign/index.html)
+and [GitHub](github.com/ecoisilva/movedesign), allowing users to easily
+test sampling strategies and assess the reliability of space-use and
+movement metrics, ultimately promoting more rigorous and impactful
+wildlife research and conservation.
 
 ## Tutorials
-
-The workflow presented in this manuscript is implemented within the
-[`movedesign`](https://github.com/ecoisilva/movedesign) `R` package.
-`movedesign` uses `R` language and `Shiny` for an easy-to-use user
-interface, and allows you to test different tracking schedules and
-*population* sample sizes, considering one or two research questions
-(home range and/or speed estimation).
 
 To install the stable version of `movedesign` from CRAN:
 
@@ -73,26 +61,45 @@ library(movedesign)
 movedesign::run_app()
 ```
 
+<div class="callout-note">
+
 A step-by-step tutorial for the Shiny interface is available
 [here](https://ecoisilva.github.io/studydesign_ms/documentation/tutorial_pop.html).
 
+</div>
+
 #### Run in R console:
 
-The full workflow can also be run directly in the R console. As an
-example, you can follow along the tutorial available
-[here](https://ecoisilva.github.io/studydesign_ms/documentation/tutorial_pop_console.html).
-Users start by fitting continuous-time movement models to empirical
-datasets, then pass those models into `md_prepare()` to configure
-candidate designs defined by three parameters: number of tagged
-individuals, sampling duration, and sampling interval. Two contrasting
-designs are compared: one short and fine-resolution, one long and
-coarse. By running simulations with `md_run()`, previewing estimation
-error with `md_plot_preview()` and `md_compare_preview()`, then scaling
-up to multiple replicates with `md_replicate()` for stable inference.
-Finally, users can compare and rank designs using `md_compare()`.
+The full workflow can also be run directly in the R console. Users start
+by fitting continuous-time movement models to empirical datasets, then
+pass those models into `md_prepare()` to configure candidate designs
+defined by three parameters: number of tagged individuals, sampling
+duration, and sampling interval. Two contrasting designs are compared:
+one short and fine-resolution, one long and coarse. By running
+simulations with `md_run()`, previewing estimation error with
+`md_plot_preview()` and `md_compare_preview()`, then scaling up to
+multiple replicates with `md_replicate()` for stable inference. Finally,
+users can compare and rank designs using `md_compare()`.
 
-A documented R script illustrating different workflows is also available
-[here](https://ecoisilva.github.io/studydesign_ms/documentation/R_script.R).
+``` mermaid
+flowchart LR
+    A[Fit movement models]
+    --> B[Prepare candidate designs]
+
+    B --> C[Run simulations]
+    C --> D[Preview estimation error]
+    D --> E[Replicate simulations]
+    E --> F[Compare designs]
+```
+
+<div class="callout-note">
+
+As an example, you can follow along the tutorial available
+[here](https://ecoisilva.github.io/studydesign_ms/documentation/tutorial_pop_console.html).
+
+</div>
+
+<!-- A documented R script illustrating different workflows is also available [here](https://ecoisilva.github.io/studydesign_ms/documentation/R_script.R). -->
 
 ## Directory structure
 
@@ -137,7 +144,12 @@ The :file_folder: **`R`** folder contains the other main scripts:
 The :file_folder: **`R/functions`** subfolder contains helper functions
 used throughout the project.
 
-## References
+## Citations
+
+> Silva, I., Fleming, C. H., Noonan, M. J., Fagan, W. F., & Calabrese,
+> J. M. (2025). Too few, too many, or just right? Optimizing sample
+> sizes for population-level inferences in animal tracking projects.
+> BioRxiv <https://doi.org/10.1101/2025.07.30.667390>
 
 > Silva, I., Fleming, C. H., Noonan, M. J., Fagan, W. F., & Calabrese,
 > J. M. (2023). movedesign: Shiny R app to evaluate sampling design for
