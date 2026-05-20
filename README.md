@@ -61,12 +61,8 @@ library(movedesign)
 movedesign::run_app()
 ```
 
-<div class="callout-note">
-
-A step-by-step tutorial for the Shiny interface is available
-[here](https://ecoisilva.github.io/studydesign_ms/documentation/tutorial_pop.html).
-
-</div>
+> \[!NOTE\] A step-by-step tutorial for the Shiny interface is available
+> [here](https://ecoisilva.github.io/studydesign_ms/documentation/tutorial_pop.html).
 
 #### Run in R console:
 
@@ -81,23 +77,8 @@ simulations with `md_run()`, previewing estimation error with
 multiple replicates with `md_replicate()` for stable inference. Finally,
 users can compare and rank designs using `md_compare()`.
 
-``` mermaid
-flowchart LR
-    A[Fit movement models]
-    --> B[Prepare candidate designs]
-
-    B --> C[Run simulations]
-    C --> D[Preview estimation error]
-    D --> E[Replicate simulations]
-    E --> F[Compare designs]
-```
-
-<div class="callout-note">
-
-As an example, you can follow along the tutorial available
-[here](https://ecoisilva.github.io/studydesign_ms/documentation/tutorial_pop_console.html).
-
-</div>
+> \[!NOTE\] As an example, you can follow along the tutorial available
+> [here](https://ecoisilva.github.io/studydesign_ms/documentation/tutorial_pop_console.html).
 
 <!-- A documented R script illustrating different workflows is also available [here](https://ecoisilva.github.io/studydesign_ms/documentation/R_script.R). -->
 
