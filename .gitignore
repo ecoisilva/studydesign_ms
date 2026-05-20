@@ -38,10 +38,8 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 
-# R Environment Variables
+# R Environment variables
 .Renviron
-
-/.quarto/
 
 # translation temp files
 po/*~
@@ -49,7 +47,7 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 
-# Big data
+# Big files
 data/simulated/
 
 # Documentation
@@ -63,4 +61,6 @@ cluster/logs/
 scratch*
 presentation/
 
+# Quarto files
 **/*.quarto_ipynb
+/.quarto/
