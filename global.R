@@ -30,12 +30,12 @@ packageList <- c("remotes",
                  "here"
 )
 
-packageList_new <- packageList[!(
+to_install <- packageList[!(
   packageList %in% installed.packages()[, "Package"])]
-if (length(packageList_new)) install.packages(packageList_new)
+if (length(to_install)) install.packages(to_install)
 sapply(packageList, library,
        character.only = TRUE, logical.return = TRUE)
-rm(packageList, packageList_new)
+rm(packageList, to_install)
 
 if (!requireNamespace("movedesign", quietly = TRUE)) {
   remotes::install_github("ecoisilva/movedesign")
@@ -57,7 +57,6 @@ quiet(sapply(
              full.names = TRUE), source))
 
 pal <- load_pal()
-
 pal_error <- grDevices::colorRampPalette(c(
   "#1F3545", "#00585A", "#1F7677", "#2E9597", "#4EA36E",
   "#82A84D", "#EBB10C", "#F09F00", "#D67B00", "#C65906",
@@ -75,7 +74,7 @@ alpha <- 1 - ci
 # Number of resamples:
 max_samples <- 250
 
-# Steps:
+# Iteration steps:
 iter_step <- 1
 
 # Error threshold:
