@@ -64,6 +64,7 @@ message("")
 
 files_to_copy <- list()
 for (f in seq_along(filenames)) {
+  
   message(paste(f, "out of", length(filenames)))
   print("-- Filename:")
   

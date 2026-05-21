@@ -5,7 +5,6 @@
 job_name <- "hr_buf_option1"
 job_time_hrs <- 3
 
-# Arguments:
 species <- "buffalo"
 individuals_no <- 8
 dur_value <- 1

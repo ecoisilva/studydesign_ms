@@ -38,11 +38,13 @@ rv <- list(add_var = as.logical(args[8]),
            species = get_species)
 
 # Sampling parameters:
+
 individuals_no <- as.numeric(args[3])
 rv$dur <- list(value = as.numeric(args[4]), unit = as.character(args[5]))
 rv$dti <- list(value = as.numeric(args[6]), unit = as.character(args[7]))
 
 # Set up parallel processing:
+
 cores_no <- as.numeric(args[1])
 cl <- parallel::makeForkCluster(cores_no)
 doParallel::registerDoParallel(cl)

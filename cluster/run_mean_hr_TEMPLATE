@@ -7,7 +7,6 @@
 #SBATCH --cpus-per-task=10            # number of cores per node
 #SBATCH --mem-per-cpu=30GB            # increase memory available to each process
 #SBATCH --mail-type=END,FAIL
-#SBATCH --mail-user=i.simoes-silva@hzdr.de
 #SBATCH --output=logs/slurm-%A.out
 
 module load miniconda
