@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Inês Silva">
+<meta name="dcterms.date" content="2026-05-21">
+<meta name="description" content="How to design an animal tracking project with movedesign (for population-level inferences)">
+
+<title>Guide to study design – Movement ecology study design</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-865f8ae0de9e9d357bc04e910f9d94e6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-919d3f999f89f5434d3bfcb3cca898c8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/quarto-contrib/academicons-1.9.4/all.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/academicons-1.9.4/size.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<script>
+// Scroll-reveal for annotated blocks and cards
+document.addEventListener("DOMContentLoaded", () => {
+  const els = document.querySelectorAll(
+    ".annotation, .design-card, .pipeline-vertical"
+  );
+  const obs = new IntersectionObserver(
+    (entries) => entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        obs.unobserve(e.target);
+      }
+    }),
+    { threshold: 0.12 }
+  );
+  els.forEach(el => {
+    el.classList.add("reveal");
+    obs.observe(el);
+  });
+});
+</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="assets/custom.scss">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Movement ecology study design</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-movedesign-application" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">movedesign application</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-movedesign-application">    
+        <li>
+    <a class="dropdown-item" href="https://ecoisilva.github.io/movedesign/">
+ <span class="dropdown-text">Website</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/ecoisilva/movedesign">
+ <span class="dropdown-text">Source code</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./tutorial_pop.html"> 
+<span class="menu-text">Tutorial (with Shiny)</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./tutorial_pop_console.html" aria-current="page"> 
+<span class="menu-text">Tutorial (with R)</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ecoisilva/studydesign_ms"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  </ul></li>
+  <li><a href="#workflow" id="toc-workflow" class="nav-link" data-scroll-target="#workflow">Workflow</a>
+  <ul class="collapse">
+  <li><a href="#step-1" id="toc-step-1" class="nav-link" data-scroll-target="#step-1">Load packages, data and fit models</a></li>
+  <li><a href="#step-2" id="toc-step-2" class="nav-link" data-scroll-target="#step-2">Prepare simulation inputs</a></li>
+  <li><a href="#step-3" id="toc-step-3" class="nav-link" data-scroll-target="#step-3">Run simulations</a></li>
+  <li><a href="#step-4" id="toc-step-4" class="nav-link" data-scroll-target="#step-4">Preview design performance</a></li>
+  <li><a href="#step-5" id="toc-step-5" class="nav-link" data-scroll-target="#step-5">Run multiple replicates for robust outputs</a></li>
+  <li><a href="#step-6" id="toc-step-6" class="nav-link" data-scroll-target="#step-6">Report</a></li>
+  </ul></li>
+  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info">Session Info</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ecoisilva/studydesign_ms/edit/main/tutorial_pop_console.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ecoisilva/studydesign_ms/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Guide to study design</h1>
+</div>
+
+<div>
+  <div class="description">
+    <p>How to design an animal tracking project with <code>movedesign</code> (for population-level inferences)</p>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Inês Silva </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 21, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p class="quotes">
+</p><p>Planning an animal tracking study often comes down to three practical questions: <em><span style="color:var(--sea);">how many animals should we tag</span>, <span style="color:var(--sea);">for how long</span>, and <span style="color:var(--sea);">how frequently</span>?</em> Poor design choices can lead to highly uncertain estimates of key movement metrics such as <em>home range area</em>, <em>movement speed</em>, and <em>distance travelled</em>, limiting the reliability of ecological inferences.</p>
+<p></p>
+<p><code>movedesign</code> is available as both an <code>R</code> package and a <code>Shiny</code> application and supports the planning and evaluation of movement ecology studies. Under the hood, <code>movedesign</code> simulates tracking datasets using movement models fitted either to existing tracking data or to user-defined movement parameters. For each candidate study design it evaluates how accurately the simulated data recover the true quantity of interest. This framework lets users examine the consequences of different design choices — including the number of tagged individuals (<span style="color:var(--sea);"><em>population</em> sample size</span>), study duration (<span style="color:var(--sea);"><em>sampling duration</em></span>), and the time between successive relocations (<span style="color:var(--sea);"><em>sampling interval</em></span>).</p>
+<p>This tutorial demonstrates a complete workflow for designing a study to estimate the mean <strong>home range area</strong> of a tracked population of African buffalo (<em>Syncerus caffer</em>) using empirical tracking data. The examples are configured to run quickly for demonstration; in practice your workflows will be more computationally intensive.</p>
+<div class="annotation">
+  <span class="annotation-icon">💬</span>
+  <div>At its core, this tutorial addresses one question: given what we
+  know about how this species moves, what study design — how many
+  individuals, tracked for how long, and at what sampling interval —
+  lets us reliably estimate mean home range area?</div>
+</div>
+<p>The workflow proceeds in six steps:</p>
+<div class="pipeline-vertical">
+
+  <div class="pipeline-v-step">
+    <div class="pipeline-v-num">1</div>
+    <div class="pipeline-v-content">
+      <a href="#step-1" class="pipeline-v-fn">data() / fitting_models()</a>
+      <span class="pipeline-v-label">Load tracking data and fit movement models</span>
+    </div>
+  </div>
+
+  <div class="pipeline-v-step">
+    <div class="pipeline-v-num">2</div>
+    <div class="pipeline-v-content">
+      <a href="#step-2" class="pipeline-v-fn">md_prepare()</a>
+      <span class="pipeline-v-label">Prepare simulation inputs for competing designs</span>
+    </div>
+  </div>
+
+  <div class="pipeline-v-step">
+    <div class="pipeline-v-num">3</div>
+    <div class="pipeline-v-content">
+      <a href="#step-3" class="pipeline-v-fn">md_run()</a>
+      <span class="pipeline-v-label">Run simulations and evaluate design performance</span>
+    </div>
+  </div>
+
+  <div class="pipeline-v-step">
+    <div class="pipeline-v-num">4</div>
+    <div class="pipeline-v-content">
+      <a href="#step-4" class="pipeline-v-fn">md_plot_preview() / md_compare_preview()</a>
+      <span class="pipeline-v-label">Visualise and compare candidate designs</span>
+    </div>
+  </div>
+
+  <div class="pipeline-v-step">
+    <div class="pipeline-v-num">5</div>
+    <div class="pipeline-v-content">
+      <a href="#step-5" class="pipeline-v-fn">md_replicate()</a>
+      <span class="pipeline-v-label">Run multiple replicates for robust outputs</span>
+    </div>
+  </div>
+
+  <div class="pipeline-v-step">
+    <div class="pipeline-v-num">6</div>
+    <div class="pipeline-v-content">
+      <a href="#step-6" class="pipeline-v-fn">md_check() / md_compare()</a>
+      <span class="pipeline-v-label">Diagnose and report final results</span>
+    </div>
+  </div>
+
+</div>
+<section id="background" class="level3">
+<h3 class="anchored" data-anchor-id="background">Background</h3>
+<p><code>movedesign</code> builds on <strong>continuous-time movement models</strong> fitted via the <code>ctmm</code> package. These models describe animal movement as a stochastic process governed by two key timescales:</p>
+<ul>
+<li><p><strong>τ</strong><sub>p</sub> — <span style="color:var(--sea);">position autocorrelation timescale</span>: how long it takes an animal to cross the linear extent of its home range (the <em>average home range crossing time</em>). This timescale is most directly relevant to this workflow — your sampling duration must capture enough home-range crossing events to reliably estimate home range area.</p></li>
+<li><p><strong>τ</strong><sub>v</sub> — <span style="color:var(--sea);">velocity autocorrelation timescale</span>: how long speed and direction remain consistent (the <em>average directional persistence</em>). A short τ<sub>v</sub> describes erratic, undirected movement; a long τ<sub>v</sub> describes an animal moving in sustained, directed bouts.</p></li>
+</ul>
+<p>Both are estimated from empirical data and used to simulate realistic movement data for study-design evaluation.</p>
+</section>
+<section id="data" class="level3">
+<h3 class="anchored" data-anchor-id="data">Data</h3>
+<p>The built-in <code>buffalo</code> dataset (available within <code>ctmm</code>) contains GPS tracks for <strong>six African buffalo</strong> (<em>Syncerus caffer</em>) from Kruger National Park, South Africa. This dataset is a named list of <code>telemetry</code> objects, one per individual.</p>
+</section>
+</section>
+<section id="workflow" class="level2">
+<h2 class="anchored" data-anchor-id="workflow">Workflow</h2>
+<section id="step-1" class="level3">
+<h3 class="anchored" data-anchor-id="step-1">Load packages, data and fit models</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install packages from CRAN:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"ctmm"</span>, <span class="st">"movedesign"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="annotation">
+  <span class="annotation-icon">💬</span>
+  <div>Load <code>movedesign</code> for the study-design workflow and
+  <code>ctmm</code> for the movement models and tracking data. Both must
+  be installed from CRAN before running the rest of this tutorial.</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(movedesign)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ctmm)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the buffalo dataset bundled with ctmm:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(buffalo)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit movement models (may take several minutes):</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">fitting_models</span>(buffalo, <span class="at">.parallel =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>fitting_models()</code> performs model selection across candidate movement models — Brownian motion, Ornstein-Uhlenbeck, and their variants — and identifies the best fit for each individual. Save the output with <code>saveRDS()</code> so you can reload it without repeating the computation.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(models, <span class="st">"models_buffalo.rds"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>When complete, <code>models</code> will be a list of lists: one element per individual, each containing that individual’s best-fit movement model.</p>
+</section>
+<section id="step-2" class="level3">
+<h3 class="anchored" data-anchor-id="step-2">Prepare simulation inputs</h3>
+<p><code>md_prepare()</code> builds the simulation blueprint for a given study design. It validates inputs, checks that movement models are available (fitting them automatically if needed), and extracts the relevant movement parameters (τ<sub>p</sub>, τ<sub>v</sub>). These are combined with your design choices: number of individuals, sampling duration, sampling interval, and grouping structure.</p>
+<div class="annotation">
+  <span class="annotation-icon">💬</span>
+  <div>The table below describes every argument in
+  <code>md_prepare()</code>. Run <code>?md_prepare()</code> for the
+  full documentation.</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Argument</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>species</code></td>
+<td>character</td>
+<td>Label for the species; appears in plots and summaries.</td>
+</tr>
+<tr class="even">
+<td><code>data</code></td>
+<td>list</td>
+<td>Tracking data (list of <code>telemetry</code> objects).</td>
+</tr>
+<tr class="odd">
+<td><code>models</code></td>
+<td>list</td>
+<td>Fitted models, one per individual.</td>
+</tr>
+<tr class="even">
+<td><code>n_individuals</code></td>
+<td>integer</td>
+<td>Population sample size.</td>
+</tr>
+<tr class="odd">
+<td><code>dur</code></td>
+<td>named list</td>
+<td>Sampling duration: <code>list(value = 1, unit = "month")</code>.</td>
+</tr>
+<tr class="even">
+<td><code>dti</code></td>
+<td>named list</td>
+<td>Sampling interval: <code>list(value = 5, unit = "days")</code>.</td>
+</tr>
+<tr class="odd">
+<td><code>add_individual_variation</code></td>
+<td>logical</td>
+<td>Draw parameters from the population distribution.</td>
+</tr>
+<tr class="even">
+<td><code>set_target</code></td>
+<td>character</td>
+<td><code>"hr"</code> = home range; <code>"ctsd"</code> = speed &amp; distance.</td>
+</tr>
+<tr class="odd">
+<td><code>which_meta</code></td>
+<td>character</td>
+<td><code>"mean"</code> = population mean; <code>"ratio"</code> = group ratio.</td>
+</tr>
+<tr class="even">
+<td><code>groups</code></td>
+<td>named list</td>
+<td><em>(Grouped designs only)</em> assigns individuals to group labels.</td>
+</tr>
+<tr class="odd">
+<td><code>parallel</code></td>
+<td>logical</td>
+<td>Enable parallel processing (strongly recommended).</td>
+</tr>
+</tbody>
+</table>
+<p>We compare two designs, each estimating the <em>population mean</em> <strong>home range area</strong> under different sampling parameters:</p>
+<div class="design-grid">
+
+  <div class="design-card">
+    <div class="design-card-header design-a">
+      Design A
+      <span class="design-card-badge">Short · Fine</span>
+    </div>
+    <div class="design-card-body">
+      <div class="design-stat">
+        <span class="design-stat-label">Sampling duration</span>
+        <span class="design-stat-value">1 month</span>
+      </div>
+      <div class="design-stat">
+        <span class="design-stat-label">Sampling interval</span>
+        <span class="design-stat-value">every 5 days</span>
+      </div>
+      <div class="design-stat">
+        <span class="design-stat-label">No. of individuals</span>
+        <span class="design-stat-value">10</span>
+      </div>
+      <p class="design-tradeoff tradeoff-a">Short duration but finer
+      resolution, with a moderate population sample size
+      (<em>m</em>).</p>
+    </div>
+  </div>
+
+  <div class="design-card">
+    <div class="design-card-header design-b">
+      Design B
+      <span class="design-card-badge">Long · Coarse</span>
+    </div>
+    <div class="design-card-body">
+      <div class="design-stat">
+        <span class="design-stat-label">Sampling duration</span>
+        <span class="design-stat-value">2 years</span>
+      </div>
+      <div class="design-stat">
+        <span class="design-stat-label">Sampling interval</span>
+        <span class="design-stat-value">every 10 days</span>
+      </div>
+      <div class="design-stat">
+        <span class="design-stat-label">No. of individuals</span>
+        <span class="design-stat-value">6</span>
+      </div>
+      <p class="design-tradeoff tradeoff-b">Longer duration and coarser
+      resolution, with a smaller population sample size
+      (<em>m</em>).</p>
+    </div>
+  </div>
+
+</div>
+<section id="design-a" class="level4">
+<h4 class="anchored" data-anchor-id="design-a">Design A</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>input_hrA <span class="ot">&lt;-</span> <span class="fu">md_prepare</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">species                  =</span> <span class="st">"buffalo"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data                     =</span> buffalo,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">models                   =</span> models,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">dur                      =</span> <span class="fu">list</span>(<span class="at">value =</span> <span class="dv">1</span>, <span class="at">unit =</span> <span class="st">"month"</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">dti                      =</span> <span class="fu">list</span>(<span class="at">value =</span> <span class="dv">5</span>, <span class="at">unit =</span> <span class="st">"days"</span>),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_individuals            =</span> <span class="dv">10</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">add_individual_variation =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">set_target               =</span> <span class="st">"hr"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">which_meta               =</span> <span class="st">"mean"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">parallel                 =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="design-b" class="level4">
+<h4 class="anchored" data-anchor-id="design-b">Design B</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>input_hrB <span class="ot">&lt;-</span> <span class="fu">md_prepare</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">species                  =</span> <span class="st">"buffalo"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data                     =</span> buffalo,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">models                   =</span> models,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">dur                      =</span> <span class="fu">list</span>(<span class="at">value =</span> <span class="dv">2</span>,  <span class="at">unit =</span> <span class="st">"years"</span>),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">dti                      =</span> <span class="fu">list</span>(<span class="at">value =</span> <span class="dv">10</span>, <span class="at">unit =</span> <span class="st">"days"</span>),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_individuals            =</span> <span class="dv">6</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">add_individual_variation =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">set_target               =</span> <span class="st">"hr"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">which_meta               =</span> <span class="st">"mean"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">parallel                 =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Inspect the prepared objects before running simulations:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(input_hrA)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(input_hrB)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+──── Input summary:
+
+     Data:
+     ────────────────────────────────────────────────────────────
+     Species................................. buffalo [empirical]
+     No. of individual used.................. 6
+     Effective sample size (area)............ 13.2
+     Effective sample size (speed)........... 1945.3
+
+     Species parameters:
+     ────────────────────────────────────────────────────────────
+     Position autocorrelation timescale...... 10.1 days
+     Location variance....................... 25.9 km²
+
+──── Workflow requested:
+
+     Study design parameters:
+     ────────────────────────────────────────────────────────────
+     No. of individuals requested............ 10
+     Sampling duration requested............. 1 month
+     Sampling interval requested............. 5 days
+     Expected absolute sample size........... 5
+     Estimation target....................... Home range
+     Inference target........................ Population mean
+     Individual variation.................... Yes
+
+     Assessing study design for a specific population sample size,
+     Estimating the population mean for a sampled population.
+ </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+──── Input summary:
+
+     Data:
+     ────────────────────────────────────────────────────────────
+     Species................................. buffalo [empirical]
+     No. of individual used.................. 6
+     Effective sample size (area)............ 13.2
+     Effective sample size (speed)........... 1945.3
+
+     Species parameters:
+     ────────────────────────────────────────────────────────────
+     Position autocorrelation timescale...... 10.1 days
+     Location variance....................... 25.9 km²
+
+──── Workflow requested:
+
+     Study design parameters:
+     ────────────────────────────────────────────────────────────
+     No. of individuals requested............ 6
+     Sampling duration requested............. 2 years
+     Sampling interval requested............. 10 days
+     Expected absolute sample size........... 73
+     Estimation target....................... Home range
+     Inference target........................ Population mean
+     Individual variation.................... Yes
+
+     Assessing study design for a specific population sample size,
+     Estimating the population mean for a sampled population.
+ </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="step-3" class="level3">
+<h3 class="anchored" data-anchor-id="step-3">Run simulations</h3>
+<p><code>md_run()</code> runs one full instance of the study design workflow and evaluates how well it recovers the target quantity. Because a single run is subject to stochastic variation (especially when <code>add_individual_variation = TRUE</code>), treat its outputs as exploratory. Later, <code>md_replicate()</code> produces robust results for reporting.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>output_run_hrA <span class="ot">&lt;-</span> <span class="fu">md_run</span>(input_hrA)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>output_run_hrB <span class="ot">&lt;-</span> <span class="fu">md_run</span>(input_hrB)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(output_run_hrA)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(output_run_hrB)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+──── Workflow summary:
+
+     No. of individuals...................... 10
+     Mean absolute sample size............... 5
+     Mean effective sample size (area)....... 13.2
+
+
+──── Notes:
+
+     No. of replicates....................... 1
+
+     This object contains preliminary outputs from a single replicate.
+     Use `md_plot_preview()` to examine its performance.
+     For more robust inferences, run more replicates using `md_replicate()`.
+ </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+──── Workflow summary:
+
+     No. of individuals...................... 6
+     Mean absolute sample size............... 73
+     Mean effective sample size (area)....... 13.2
+
+
+──── Notes:
+
+     No. of replicates....................... 1
+
+     This object contains preliminary outputs from a single replicate.
+     Use `md_plot_preview()` to examine its performance.
+     For more robust inferences, run more replicates using `md_replicate()`.
+ </code></pre>
+</div>
+</div>
+</section>
+<section id="step-4" class="level3">
+<h3 class="anchored" data-anchor-id="step-4">Preview design performance</h3>
+<p><code>md_plot_preview()</code> shows how estimation error (relative error in home range area) changes with population sample size. It provides preliminary insight into design performance from a single stochastic run.</p>
+<p>By default the plot shows estimates for a random combination of individuals at each sample size. Small sample sizes can produce highly unstable results.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">md_plot_preview</span>(output_run_hrB)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tutorial_pop_console_files/figure-html/preview-hrB-default-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>If <code>n_resamples</code> is specified, the function evaluates up to <code>n</code> unique combinations at each population sample size, summarising results as mean relative error with confidence intervals. In design B with <code>n_individuals = 6</code>, the smallest sample size (selecting 2 from 6) yields <span class="math inline">\binom{6}{2} = 15</span> possible combinations.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Explicit resampling:</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">md_plot_preview</span>(output_run_hrB, <span class="at">n_resamples =</span> <span class="dv">15</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tutorial_pop_console_files/figure-html/preview-resampled-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Variability narrows at larger sample sizes because the number of unique combinations shrinks as <code>k</code> approaches <code>n</code>.</p>
+<section id="compare-candidate-designs" class="level4">
+<h4 class="anchored" data-anchor-id="compare-candidate-designs">Compare candidate designs</h4>
+<p><code>md_compare_preview()</code> plots estimation error side by side for two or more designs. The <code>error_threshold</code> argument adds a reference line marking the maximum acceptable relative error — forcing an explicit decision about how much estimation error is tolerable. Here we set it to <code>0.1</code> (10%).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">md_compare_preview</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(output_run_hrA, output_run_hrB),</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">error_threshold =</span> <span class="fl">0.1</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n_resamples     =</span> <span class="dv">15</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tutorial_pop_console_files/figure-html/compare-designs-seeded-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In this example, design A underestimated home range area by around 62% at 10 individuals (outside the threshold), while design B overestimated by around 3% with 6 individuals (within the threshold).</p>
+<p>Your results may differ — variability between runs is expected and is precisely why <code>md_run()</code> outputs should be treated as preliminary.</p>
+</section>
+</section>
+<section id="step-5" class="level3">
+<h3 class="anchored" data-anchor-id="step-5">Run multiple replicates for robust outputs</h3>
+<p><code>md_replicate()</code> runs the workflow many times, each time drawing an independent set of simulated individuals under the specified design. Think of each replicate as a hypothetical version of your study. Aggregating across many such hypothetical studies reveals what you can reliably expect: how close estimates tend to be to the truth, and how much they vary.</p>
+<div class="annotation">
+  <span class="annotation-icon">💬</span>
+  <div><code>n_replicates = 5</code> is used here for illustration — it
+  is the minimum recommended number. In practice, reliable results
+  typically require considerably more replicates.</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>out_replicate_hrA <span class="ot">&lt;-</span> <span class="fu">md_replicate</span>(input_hrA, <span class="at">n_replicates =</span> <span class="dv">5</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>out_replicate_hrB <span class="ot">&lt;-</span> <span class="fu">md_replicate</span>(input_hrB, <span class="at">n_replicates =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Once complete, inspect each design using <code>md_plot()</code> and <code>md_check()</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">md_plot</span>(out_replicate_hrA)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">md_plot</span>(out_replicate_hrB)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">md_check</span>(out_replicate_hrA, <span class="at">n_converge =</span> <span class="dv">4</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">md_check</span>(out_replicate_hrB, <span class="at">n_converge =</span> <span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="step-6" class="level3">
+<h3 class="anchored" data-anchor-id="step-6">Report</h3>
+<p><code>md_compare()</code> takes the replicated outputs from two or more designs and produces a density plot of relative error across replicates, giving a full picture of performance. Designs are ranked by combining the error distribution with the width and position of the credible interval relative to zero. The best-performing design is identified automatically.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>out_report <span class="ot">&lt;-</span> <span class="fu">md_compare</span>(<span class="fu">list</span>(out_replicate_hrA,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                              out_replicate_hrB))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tutorial_pop_console_files/figure-html/compare-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(out_report, <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Design comparison for
+ ─── Home range estimation:
+     Best study design... 2
+
+     Parameters of best study design:
+     ──────────────────────────────────────────────────────────────────────
+     No. of individuals.. 6
+     Sampling duration... 2 years
+     Sampling interval... 10 days
+
+     Estimator performance:
+     ──────────────────────────────────────────────────────────────────────
+     Relative error...... -7.1%
+     CI.................. [-14.5, 1.7%]
+     Reason.............. Absolute error minimized, and CI overlaps with 0.
+ </code></pre>
+</div>
+</div>
+<p>In this workflow, the best design was 2, yielding a relative error of -7.1% [95% CI: -14.5, 1.7%], with 6 tagged individuals tracked for 2 years every 10 days.</p>
+</section>
+</section>
+<section id="session-info" class="level2">
+<h2 class="anchored" data-anchor-id="session-info">Session Info</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Total run time: 10.01221 mins </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>utils<span class="sc">::</span><span class="fu">sessionInfo</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.5.3 (2026-03-11 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 10 x64 (build 19044)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=English_Germany.utf8  LC_CTYPE=English_Germany.utf8   
+[3] LC_MONETARY=English_Germany.utf8 LC_NUMERIC=C                    
+[5] LC_TIME=English_Germany.utf8    
+
+time zone: Europe/Berlin
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices datasets  utils     methods   base     
+
+other attached packages:
+[1] dplyr_1.2.1      here_1.0.2       ctmm_1.3.1       movedesign_0.3.3
+
+loaded via a namespace (and not attached):
+ [1] gmp_0.7-5.1         config_0.3.2        generics_0.1.4     
+ [4] renv_1.2.3          stringi_1.8.7       lattice_0.22-9     
+ [7] digest_0.6.39       magrittr_2.0.5      evaluate_1.0.5     
+[10] grid_4.5.3          attempt_0.3.1       RColorBrewer_1.1-3 
+[13] golem_0.5.1         fastmap_1.2.0       Matrix_1.7-5       
+[16] rprojroot_2.1.1     jsonlite_2.0.0      promises_1.5.0     
+[19] scales_1.4.0        Bessel_0.7-0        numDeriv_2016.8-1.1
+[22] codetools_0.2-20    Rmpfr_1.1-2         cli_3.6.6          
+[25] shiny_1.13.0        expm_1.0-0          rlang_1.2.0        
+[28] crayon_1.5.3        withr_3.0.2         yaml_2.3.12        
+[31] otel_0.2.0          parallel_4.5.3      tools_4.5.3        
+[34] raster_3.6-32       ggplot2_4.0.3       httpuv_1.6.17      
+[37] bayestestR_0.17.0   vctrs_0.7.3         R6_2.6.1           
+[40] mime_0.13           lifecycle_1.0.5     stringr_1.6.0      
+[43] htmlwidgets_1.6.4   MASS_7.3-65         insight_1.5.0      
+[46] pkgconfig_2.0.3     terra_1.9-27        pillar_1.11.1      
+[49] later_1.4.8         gtable_0.3.6        data.table_1.18.4  
+[52] glue_1.8.1          Rcpp_1.1.1-1.1      statmod_1.5.2      
+[55] xfun_0.57           tibble_3.3.1        tidyselect_1.2.1   
+[58] rstudioapi_0.18.0   knitr_1.51          farver_2.1.2       
+[61] xtable_1.8-8        patchwork_1.3.2     htmltools_0.5.9    
+[64] labeling_0.4.3      rmarkdown_2.31      compiler_4.5.3     
+[67] S7_0.2.2            sp_2.2-1           </code></pre>
+</div>
+</div>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ecoisilva\.github\.io\/studydesign_ms\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Made with <a href="https://quarto.org">Quarto</a>, by Inês Silva. License: <a href="https://creativecommons.org/licenses/by/4.0/deed.en">CC-BY 4.0</a>.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ecoisilva/studydesign_ms/edit/main/tutorial_pop_console.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ecoisilva/studydesign_ms/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="mailto:i.simoes-silva@hzdr.de">
+      <i class="bi bi-envelope" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ecoisilva">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://orcid.org/0000-0003-4850-6193">
+<p><i class="ai  ai-orcid" aria-label="orcid"></i></p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
