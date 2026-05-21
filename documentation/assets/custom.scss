@@ -385,6 +385,11 @@ td code:not(.sourceCode) {
 
 // Navbar and Sidebar
 
+.navbar {
+  background-color: #009da0 !important;
+  color: rgb(84.32,84.66,85);
+}
+
 .sidebar nav[role="doc-toc"] > ul li a {
 
   &.active {

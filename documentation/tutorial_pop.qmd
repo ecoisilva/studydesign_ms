@@ -5,10 +5,6 @@ description: >
 author: 
   - name: "Inês Silva"
     orcid_id: 0000-0003-4850-6193
-  - name: "Christen H. Fleming"
-  - name: "Michael J. Noonan"
-  - name: "William F. Fagan"
-  - name: "Justin M. Calabrese"
 date: "`r Sys.Date()`"
 format:
   html:

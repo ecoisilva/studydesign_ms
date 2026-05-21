@@ -3,15 +3,13 @@ title: "Guide to study design"
 description: >
   How to design an animal tracking project with `movedesign`
   (for population-level inferences)
-author: ""
-date: today
+author: 
+  - name: "Inês Silva"
+    orcid_id: 0000-0003-4850-6193
+date: "`r Sys.Date()`"
 format:
   html:
     toc: true
-    toc-depth: 3
-    number-sections: true
-    number-depth: 3
-    theme: cosmo
     html-math-method: katex
     css: assets/custom.scss
     include-in-header:
@@ -50,35 +48,13 @@ execute:
 
 <p class="quotes">
 
-Planning an animal tracking study often comes down to three practical
-questions: <em>[how many animals should we tag]{style="color:var(--sea);"},
-[for how long]{style="color:var(--sea);"}, and
-[how frequently]{style="color:var(--sea);"}?</em> Poor design choices
-can lead to highly uncertain estimates of key movement metrics such as
-<em>home range area</em>, <em>movement speed</em>, and
-<em>distance travelled</em>, limiting the reliability of ecological
-inferences.
+Planning an animal tracking study often comes down to three practical questions: <em>[how many animals should we tag]{style="color:var(--sea);"}, [for how long]{style="color:var(--sea);"}, and [how frequently]{style="color:var(--sea);"}?</em> Poor design choices can lead to highly uncertain estimates of key movement metrics such as <em>home range area</em>, <em>movement speed</em>, and <em>distance travelled</em>, limiting the reliability of ecological inferences.
 
 </p>
 
-`movedesign` is available as both an `R` package and a `Shiny`
-application and supports the planning and evaluation of movement ecology
-studies. Under the hood, `movedesign` simulates tracking datasets using
-movement models fitted either to existing tracking data or to
-user-defined movement parameters. For each candidate study design it
-evaluates how accurately the simulated data recover the true quantity of
-interest. This framework lets users examine the consequences of
-different design choices — including the number of tagged individuals
-([*population* sample size]{style="color:var(--sea);"}), study duration
-([*sampling duration*]{style="color:var(--sea);"}), and the time between
-successive relocations
-([*sampling interval*]{style="color:var(--sea);"}).
+`movedesign` is available as both an `R` package and a `Shiny` application and supports the planning and evaluation of movement ecology studies. Under the hood, `movedesign` simulates tracking datasets using movement models fitted either to existing tracking data or to user-defined movement parameters. For each candidate study design it evaluates how accurately the simulated data recover the true quantity of interest. This framework lets users examine the consequences of different design choices — including the number of tagged individuals ([*population* sample size]{style="color:var(--sea);"}), study duration ([*sampling duration*]{style="color:var(--sea);"}), and the time between successive relocations ([*sampling interval*]{style="color:var(--sea);"}).
 
-This tutorial demonstrates a complete workflow for designing a study to
-estimate the mean **home range area** of a tracked population of African
-buffalo (*Syncerus caffer*) using empirical tracking data. The examples
-are configured to run quickly for demonstration; in practice your
-workflows will be more computationally intensive.
+This tutorial demonstrates a complete workflow for designing a study to estimate the mean **home range area** of a tracked population of African buffalo (*Syncerus caffer*) using empirical tracking data. The examples are configured to run quickly for demonstration; in practice your workflows will be more computationally intensive.
 
 ```{=html}
 <div class="annotation">
@@ -148,32 +124,17 @@ The workflow proceeds in six steps:
 
 ### Background
 
-`movedesign` builds on **continuous-time movement models** fitted via
-the `ctmm` package. These models describe animal movement as a
-stochastic process governed by two key timescales:
+`movedesign` builds on **continuous-time movement models** fitted via the `ctmm` package. These models describe animal movement as a stochastic process governed by two key timescales:
 
-- **τ**~p~ — [position autocorrelation
-  timescale]{style="color:var(--sea);"}: how long it takes an animal to
-  cross the linear extent of its home range (the *average home range
-  crossing time*). This timescale is most directly relevant to this
-  workflow — your sampling duration must capture enough home-range
-  crossing events to reliably estimate home range area.
+- **τ**~p~ — [position autocorrelation timescale]{style="color:var(--sea);"}: how long it takes an animal to cross the linear extent of its home range (the *average home range crossing time*). This timescale is most directly relevant to this workflow — your sampling duration must capture enough home-range crossing events to reliably estimate home range area.
 
-- **τ**~v~ — [velocity autocorrelation
-  timescale]{style="color:var(--sea);"}: how long speed and direction
-  remain consistent (the *average directional persistence*). A short
-  τ~v~ describes erratic, undirected movement; a long τ~v~ describes an
-  animal moving in sustained, directed bouts.
+- **τ**~v~ — [velocity autocorrelation timescale]{style="color:var(--sea);"}: how long speed and direction remain consistent (the *average directional persistence*). A short τ~v~ describes erratic, undirected movement; a long τ~v~ describes an animal moving in sustained, directed bouts.
 
-Both are estimated from empirical data and used to simulate realistic
-movement data for study-design evaluation.
+Both are estimated from empirical data and used to simulate realistic movement data for study-design evaluation.
 
 ### Data
 
-The built-in `buffalo` dataset (available within `ctmm`) contains GPS
-tracks for **six African buffalo** (*Syncerus caffer*) from Kruger
-National Park, South Africa. This dataset is a named list of `telemetry`
-objects, one per individual.
+The built-in `buffalo` dataset (available within `ctmm`) contains GPS tracks for **six African buffalo** (*Syncerus caffer*) from Kruger National Park, South Africa. This dataset is a named list of `telemetry` objects, one per individual.
 
 ## Workflow
 
@@ -234,10 +195,7 @@ data(buffalo)
 models <- fitting_models(buffalo, .parallel = FALSE)
 ```
 
-`fitting_models()` performs model selection across candidate movement
-models — Brownian motion, Ornstein-Uhlenbeck, and their variants — and
-identifies the best fit for each individual. Save the output with
-`saveRDS()` so you can reload it without repeating the computation.
+`fitting_models()` performs model selection across candidate movement models — Brownian motion, Ornstein-Uhlenbeck, and their variants — and identifies the best fit for each individual. Save the output with `saveRDS()` so you can reload it without repeating the computation.
 
 ```{r}
 #| label: save
@@ -246,17 +204,11 @@ identifies the best fit for each individual. Save the output with
 saveRDS(models, "models_buffalo.rds")
 ```
 
-When complete, `models` will be a list of lists: one element per
-individual, each containing that individual's best-fit movement model.
+When complete, `models` will be a list of lists: one element per individual, each containing that individual's best-fit movement model.
 
 ### Prepare simulation inputs {#step-2}
 
-`md_prepare()` builds the simulation blueprint for a given study design.
-It validates inputs, checks that movement models are available (fitting
-them automatically if needed), and extracts the relevant movement
-parameters (τ~p~, τ~v~). These are combined with your design choices:
-number of individuals, sampling duration, sampling interval, and
-grouping structure.
+`md_prepare()` builds the simulation blueprint for a given study design. It validates inputs, checks that movement models are available (fitting them automatically if needed), and extracts the relevant movement parameters (τ~p~, τ~v~). These are combined with your design choices: number of individuals, sampling duration, sampling interval, and grouping structure.
 
 ```{=html}
 <div class="annotation">
@@ -268,7 +220,7 @@ grouping structure.
 ```
 
 | Argument | Type | Description |
-|---|---|---|
+|------------------------|------------------------|------------------------|
 | `species` | character | Label for the species; appears in plots and summaries. |
 | `data` | list | Tracking data (list of `telemetry` objects). |
 | `models` | list | Fitted models, one per individual. |
@@ -281,10 +233,7 @@ grouping structure.
 | `groups` | named list | *(Grouped designs only)* assigns individuals to group labels. |
 | `parallel` | logical | Enable parallel processing (strongly recommended). |
 
-: {tbl-colwidths="[20,20,60]"}
-
-We compare two designs, each estimating the *population mean* **home
-range area** under different sampling parameters:
+We compare two designs, each estimating the *population mean* **home range area** under different sampling parameters:
 
 ```{=html}
 <div class="design-grid">
@@ -408,11 +357,7 @@ print(input_hrB)
 
 ### Run simulations {#step-3}
 
-`md_run()` runs one full instance of the study design workflow and
-evaluates how well it recovers the target quantity. Because a single run
-is subject to stochastic variation (especially when
-`add_individual_variation = TRUE`), treat its outputs as exploratory.
-Later, `md_replicate()` produces robust results for reporting.
+`md_run()` runs one full instance of the study design workflow and evaluates how well it recovers the target quantity. Because a single run is subject to stochastic variation (especially when `add_individual_variation = TRUE`), treat its outputs as exploratory. Later, `md_replicate()` produces robust results for reporting.
 
 ```{r}
 #| label: run-sims
@@ -448,13 +393,9 @@ print(output_run_hrB)
 
 ### Preview design performance {#step-4}
 
-`md_plot_preview()` shows how estimation error (relative error in home
-range area) changes with population sample size. It provides preliminary
-insight into design performance from a single stochastic run.
+`md_plot_preview()` shows how estimation error (relative error in home range area) changes with population sample size. It provides preliminary insight into design performance from a single stochastic run.
 
-By default the plot shows estimates for a random combination of
-individuals at each sample size. Small sample sizes can produce highly
-unstable results.
+By default the plot shows estimates for a random combination of individuals at each sample size. Small sample sizes can produce highly unstable results.
 
 ```{r}
 #| label: preview-hrB-default
@@ -466,11 +407,7 @@ unstable results.
 md_plot_preview(output_run_hrB)
 ```
 
-If `n_resamples` is specified, the function evaluates up to `n` unique
-combinations at each population sample size, summarising results as mean
-relative error with confidence intervals. In design B with
-`n_individuals = 6`, the smallest sample size (selecting 2 from 6)
-yields $\binom{6}{2} = 15$ possible combinations.
+If `n_resamples` is specified, the function evaluates up to `n` unique combinations at each population sample size, summarising results as mean relative error with confidence intervals. In design B with `n_individuals = 6`, the smallest sample size (selecting 2 from 6) yields $\binom{6}{2} = 15$ possible combinations.
 
 ```{r}
 #| label: preview-resampled
@@ -483,16 +420,11 @@ yields $\binom{6}{2} = 15$ possible combinations.
 md_plot_preview(output_run_hrB, n_resamples = 15)
 ```
 
-Variability narrows at larger sample sizes because the number of unique
-combinations shrinks as `k` approaches `n`.
+Variability narrows at larger sample sizes because the number of unique combinations shrinks as `k` approaches `n`.
 
 #### Compare candidate designs
 
-`md_compare_preview()` plots estimation error side by side for two or
-more designs. The `error_threshold` argument adds a reference line
-marking the maximum acceptable relative error — forcing an explicit
-decision about how much estimation error is tolerable. Here we set it to
-`0.1` (10%).
+`md_compare_preview()` plots estimation error side by side for two or more designs. The `error_threshold` argument adds a reference line marking the maximum acceptable relative error — forcing an explicit decision about how much estimation error is tolerable. Here we set it to `0.1` (10%).
 
 ```{r}
 #| label: compare-designs
@@ -528,24 +460,13 @@ err_A <- round(err_A * 100, 0)
 err_B <- round(err_B * 100, 0)
 ```
 
-In this example, design A `r dir_A` home range area by around
-`r abs(err_A)`% at `r output_run_hrA$n_individuals` individuals
-(`r ifelse(abs(err_A) > 15, "outside", "within")` the threshold), while
-design B `r dir_B` by around `r abs(err_B)`% with
-`r output_run_hrB$n_individuals` individuals
-(`r ifelse(abs(err_B) > 15, "outside", "within")` the threshold).
+In this example, design A `r dir_A` home range area by around `r abs(err_A)`% at `r output_run_hrA$n_individuals` individuals (`r ifelse(abs(err_A) > 15, "outside", "within")` the threshold), while design B `r dir_B` by around `r abs(err_B)`% with `r output_run_hrB$n_individuals` individuals (`r ifelse(abs(err_B) > 15, "outside", "within")` the threshold).
 
-Your results may differ — variability between runs is expected and is
-precisely why `md_run()` outputs should be treated as preliminary.
+Your results may differ — variability between runs is expected and is precisely why `md_run()` outputs should be treated as preliminary.
 
 ### Run multiple replicates for robust outputs {#step-5}
 
-`md_replicate()` runs the workflow many times, each time drawing an
-independent set of simulated individuals under the specified design.
-Think of each replicate as a hypothetical version of your study.
-Aggregating across many such hypothetical studies reveals what you can
-reliably expect: how close estimates tend to be to the truth, and how
-much they vary.
+`md_replicate()` runs the workflow many times, each time drawing an independent set of simulated individuals under the specified design. Think of each replicate as a hypothetical version of your study. Aggregating across many such hypothetical studies reveals what you can reliably expect: how close estimates tend to be to the truth, and how much they vary.
 
 ```{=html}
 <div class="annotation">
@@ -586,11 +507,7 @@ md_check(out_replicate_hrB, n_converge = 4)
 
 ### Report {#step-6}
 
-`md_compare()` takes the replicated outputs from two or more designs and
-produces a density plot of relative error across replicates, giving a
-full picture of performance. Designs are ranked by combining the error
-distribution with the width and position of the credible interval
-relative to zero. The best-performing design is identified automatically.
+`md_compare()` takes the replicated outputs from two or more designs and produces a density plot of relative error across replicates, giving a full picture of performance. Designs are ranked by combining the error distribution with the width and position of the credible interval relative to zero. The best-performing design is identified automatically.
 
 ```{r}
 #| label: compare
@@ -636,12 +553,7 @@ summary(out_report, verbose = TRUE)
 print(out_report, verbose = TRUE)
 ```
 
-In this workflow, the best design was `r winner`, yielding a relative
-error of `r round(rank_rows$error * 100, 1)`% \[95% CI:
-`r round(rank_rows$error_lci * 100, 1)`,
-`r round(rank_rows$error_uci * 100, 1)`%\], with `r rank_rows$m` tagged
-individuals tracked for `r rank_rows$dur` `r rank_rows$dur_unit` every
-`r rank_rows$dti` `r rank_rows$dti_unit`.
+In this workflow, the best design was `r winner`, yielding a relative error of `r round(rank_rows$error * 100, 1)`% \[95% CI: `r round(rank_rows$error_lci * 100, 1)`, `r round(rank_rows$error_uci * 100, 1)`%\], with `r rank_rows$m` tagged individuals tracked for `r rank_rows$dur` `r rank_rows$dur_unit` every `r rank_rows$dti` `r rank_rows$dti_unit`.
 
 ## Session Info
 
