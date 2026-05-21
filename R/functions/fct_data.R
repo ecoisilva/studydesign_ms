@@ -5,9 +5,8 @@ get_ctmm_dataset <- function(x = "buffalo", id = NULL) {
   if (x == "buffalo") out_dataset <- buffalo
   if (x == "gazelle") out_dataset <- gazelle
   
-  simfitList <- readRDS(here::here("data",
-                                   "processed",
-                                   paste0(x, "_fitList.rds")))
+  simfitList <- readRDS(
+    here::here("data", "processed", paste0(x, "_fitList.rds")))
   
   data <- out_dataset
   guess <- fit <- list()

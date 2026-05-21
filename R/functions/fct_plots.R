@@ -169,7 +169,7 @@ plotting_meta <- function(data,
                                 breaks = breaks_pretty()) +
     ggplot2::scale_color_manual(values = pal_values,
                                 drop = FALSE) +
-    set_theme() +
+    .theme() +
     ggplot2::theme(
       plot.title = ggtext::element_markdown(
         size = 14, margin = ggplot2::margin(b = 5)),
@@ -313,7 +313,7 @@ plotting_meta_resampled <- function(data,
                                 breaks = breaks_pretty()) +
     ggplot2::scale_color_manual(values = pal_values,
                                 drop = FALSE) +
-    set_theme() +
+    .theme() +
     ggplot2::theme(
       axis.text.x = ggplot2::element_blank(),
       plot.title = ggtext::element_markdown(
@@ -436,7 +436,7 @@ plotting_meta_resampled <- function(data,
     ggplot2::scale_y_continuous(labels = scales::percent,
                                 breaks = breaks_pretty()) +
     
-    set_theme(ft_size = 13) +
+    .theme(ft_size = 13) +
     ggplot2::theme(
       plot.title = ggtext::element_markdown(
         size = 14, margin = ggplot2::margin(b = 5)),
@@ -559,7 +559,7 @@ plotting_meta_resampled <- function(data,
     ggplot2::scale_y_continuous(labels = scales::percent,
                                 breaks = breaks_pretty()) +
     
-    set_theme(ft_size = 12) +
+    .theme(ft_size = 12) +
     ggplot2::theme(
       plot.title = ggtext::element_markdown(
         size = 14, margin = ggplot2::margin(b = 5))) +
@@ -706,7 +706,7 @@ plotting_metrics <- function(data,
     ggplot2::scale_y_continuous(labels = scales::percent,
                                 breaks = scales::breaks_pretty(),
                                 limits = c(0, 1)) +
-    set_theme(ft_size = 12) +
+    .theme(ft_size = 12) +
     ggplot2::theme(
       axis.text.x = ggplot2::element_blank(),
       plot.title = ggtext::element_markdown(
@@ -785,7 +785,7 @@ plotting_metrics <- function(data,
     ggplot2::scale_y_continuous(labels = scales::percent,
                                 breaks = scales::breaks_pretty(),
                                 limits = c(0, 1)) +
-    set_theme(ft_size = 12) +
+    .theme(ft_size = 12) +
     ggplot2::theme(
       plot.title = ggtext::element_markdown(
         size = 14, margin = ggplot2::margin(b = 5)),
@@ -865,7 +865,7 @@ plotting_metrics <- function(data,
   #   ggplot2::scale_y_continuous(labels = scales::percent,
   #                               breaks = scales::breaks_pretty(),
   #                               limits = c(0, 1)) +
-  #   set_theme(ft_size = 12) +
+  #   .theme(ft_size = 12) +
   #   ggplot2::theme(
   #     plot.title = ggtext::element_markdown(
   #       size = 14, margin = ggplot2::margin(b = 5)),
@@ -988,13 +988,12 @@ plotting_loocv <- function(data,
                             fill = pal_values,
                             size = 2),
         order = 1,
-        text.vjust = 4,
         label.vjust = 0.4,
         theme = ggplot2::theme(
           legend.key.width = unit(2, "lines"),
           legend.key.height = unit(0.5, "lines")))) +
     
-    set_theme() +
+    .theme() +
     ggplot2::theme(
       plot.title = ggtext::element_markdown(
         size = 14, margin = ggplot2::margin(b = 5)),
@@ -1013,53 +1012,62 @@ plotting_loocv <- function(data,
   else return(p)
 }
 
-set_theme <- function(ft_size = 13) {
+.theme <- function(ft_size = 13) {
   
-  font <- font_title <- "Roboto Condensed"
+  font <- "Roboto Condensed"
   
-  ggplot2::theme_minimal() %+replace%
-    ggplot2::theme(
-      text = ggplot2::element_text(
-        family = font, size = ft_size, colour = "grey5"),
-      
-      plot.title = ggtext::element_markdown(
-        family = "Roboto Condensed SemiBold", 
-        size = ft_size + 3, # face = 2,
-        vjust = 1.2, hjust = 0, margin = margin(b = 2)),
-      plot.subtitle = ggtext::element_markdown(
-        family = font_title,
-        hjust = 0, margin = margin(b = 7)),
-      plot.caption = ggtext::element_markdown(
-        size = ft_size - 4, hjust = 1, margin = margin(t = 6)),
-      
-      panel.grid.major = ggplot2::element_line(
-        color = "grey92", linewidth = 0.2),
-      panel.grid.minor = ggplot2::element_line(
-        color = "grey92", linewidth = 0.2),
-      panel.border = ggplot2::element_rect(
-        color = "grey95", fill = NA, linewidth = 0.2),
-      
-      strip.background.x = element_rect(
-        color = NA, fill = "grey90"),
-      strip.background.y =  element_rect(
-        color = NA, fill = NA),
-      strip.text.x = element_markdown(),
-      strip.text.y = element_markdown(angle = 90),
-      
-      axis.text = ggtext::element_markdown(
-        colour = "#878787", size = ft_size - 5),
-      axis.title = ggtext::element_markdown(
-        family = "Roboto Condensed SemiBold", # face = 2,
-        size = ft_size - 2),
-      
-      axis.title.x = ggtext::element_markdown(
-        margin = margin(t = 5),
-      ),
-      axis.title.y = ggtext::element_markdown(
-        margin = margin(r = 5), angle = 90
-      ),
-      
-      legend.position = "bottom",
-      plot.margin = ggplot2::unit(c(0.5, 0, 0.1, 0), "cm"))
+  ggplot2::theme(
+    text = ggplot2::element_text(
+      family = font, size = ft_size, colour = "grey5"),
+    
+    plot.background = ggplot2::element_rect(
+      fill = "white", color = NA),
+    plot.title = ggtext::element_markdown(
+      family = font, 
+      size = ft_size + 3, face = 2,
+      vjust = 1.2, hjust = 0, margin = margin(b = 2)),
+    plot.subtitle = ggtext::element_markdown(
+      family = font,
+      hjust = 0, margin = margin(b = 7)),
+    plot.caption = ggtext::element_markdown(
+      size = ft_size - 4, hjust = 1, margin = margin(t = 6)),
+    
+    panel.background = ggplot2::element_rect(
+      fill = "white", color = NA),
+    panel.grid.major = ggplot2::element_line(
+      color = "grey92", linewidth = 0.2),
+    panel.grid.minor = ggplot2::element_line(
+      color = "grey92", linewidth = 0.2),
+    panel.border = ggplot2::element_rect(
+      color = "grey95", fill = NA, linewidth = 0.2),
+    
+    strip.background.x = element_rect(
+      color = NA, fill = "grey90"),
+    strip.background.y =  element_rect(
+      color = NA, fill = NA),
+    strip.text.x = element_markdown(),
+    strip.text.y = element_markdown(angle = 90),
+    
+    axis.text = ggtext::element_markdown(
+      family = font,
+      colour = "#878787", size = ft_size - 5),
+    axis.text.x = ggtext::element_markdown(
+      colour = "#878787", size = 8),
+    axis.text.y = ggtext::element_markdown(
+      colour = "#878787", size = 8),
+    axis.title = ggtext::element_markdown(
+      family = font, face = 2,
+      size = ft_size - 2),
+    axis.title.x = ggtext::element_markdown(
+      margin = margin(t = 5)),
+    axis.title.y = ggtext::element_markdown(
+      margin = margin(r = 5), angle = 90),
+    
+    legend.title = ggtext::element_markdown(
+      family = font, face = 2, size = ft_size - 2),
+    legend.key = ggplot2::element_rect(
+      fill = "white", color = NA),
+    legend.position = "bottom",
+    
+    plot.margin = ggplot2::unit(c(0.5, 0, 0.1, 0), "cm"))
 }
-

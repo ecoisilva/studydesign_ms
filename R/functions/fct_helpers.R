@@ -3,13 +3,8 @@
 
 load_pal <- function() {
   
-  # out <- list(sea_l = "#7fcecf",
-  #             sea = "#08bbbf",
-  #             dgr_l = "#eea59c",
-  #             dgr = "#fa6b5a")
-  
-  out <- list(sea_l = "#9cd6d6",
-              dgr_l = "#f2c3bd",
+  out <- list(sea_l = "#7fcecf",
+              dgr_l = "#eea59c",
               sea = "#009da0",
               dgr = "#dd4b39",
               gld = "#ffb300")
@@ -20,18 +15,25 @@ load_pal <- function() {
 
 calculate_ci <- function(data, level = 0.95) {
   
+  data <- data[!is.na(data)]
+  n <- length(data)
+  
+  if (n < 2) {
+    return(data.frame(
+      CI = level,
+      CI_low = NA,
+      CI_high = NA))
+  }
+  
   alpha <- 1 - (1 - level)/2
+  se <- sd(data) / sqrt(n)
   
-  dof <- length(data) - 1
-  margin <- qt(alpha, df = dof) *
-    sd(data, na.rm = TRUE)/sqrt(length(data))
+  margin <- qt(alpha, df = n - 1) * se
   
-  out <- data.frame(
+  return(data.frame(
     CI = level,
-    CI_low = mean(data, na.rm = TRUE) - margin,
-    CI_high = mean(data, na.rm = TRUE) + margin)
-  
-  return(out)
+    CI_low = mean(data) - margin,
+    CI_high = mean(data) + margin))
 }
 
 .read_in_files <- function(filenames,

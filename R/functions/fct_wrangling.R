@@ -5,8 +5,8 @@ summarize_everything <- function(data,
   data |>
     dplyr::summarize(
       n = dplyr::n(),
-      error_mean_lci = mean(error, na.rm = TRUE),
-      error_mean_uci = mean(error, na.rm = TRUE),
+      error_mean_lci = mean(error_lci, na.rm = TRUE),
+      error_mean_uci = mean(error_uci, na.rm = TRUE),
       error_mean = mean(error, na.rm = TRUE),
       .groups = "drop"
     ) |>
