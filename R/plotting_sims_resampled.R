@@ -8,8 +8,8 @@ img_gazelle <- readPNG(
   here::here("documentation", "ext_images", "mongolian_gazelle.png"))
 
 # SIMULATION OUTPUTS with RESAMPLING: -------------------------------------
-## HOME RANGE -------------------------------------------------------------
 
+## HOME RANGE -------------------------------------------------------------
 ### Buffalo ("short" position autocorrelation) ----------------------------
 
 p <- p.resampled <- p.metrics <- NULL
@@ -86,17 +86,6 @@ ggplot2::ggsave(
   height = 8, width = 10, 
   dpi = 300, device = "png")
 
-( p.metrics <- plotting_metrics(dat_buffalo,
-                                facet_var = "dur", 
-                                error_threshold = error_threshold) )
-
-ggplot2::ggsave(
-  p.metrics, file = here::here(
-    "figures", "supplementary", "metrics_hr_buffalo.png"),
-  bg = "white",
-  height = 6, width = 10, 
-  dpi = 300, device = "png")
-
 ### Gazelle ("long" position autocorrelation) -----------------------------
 
 p <- p.resampled <- p.metrics <- NULL
@@ -166,17 +155,6 @@ ggplot2::ggsave(
     "figures", "hr_gazelle_resampled.png"),
   bg = "white",
   height = 5, width = 10, 
-  dpi = 300, device = "png")
-
-( p.metrics <- plotting_metrics(dat_gazelle,
-                                facet_var = "dur", 
-                                error_threshold = error_threshold) )
-
-ggplot2::ggsave(
-  p.metrics, file = here::here(
-    "figures", "supplementary", "metrics_hr_gazelle.png"),
-  bg = "white",
-  height = 8, width = 10, 
   dpi = 300, device = "png")
 
 ## SPEED & DISTANCE -------------------------------------------------------
@@ -259,17 +237,6 @@ ggplot2::ggsave(
   height = 5, width = 10, 
   dpi = 300, device = "png")
 
-( p.metrics <- plotting_metrics(dat_buffalo,
-                               facet_var = "dti", 
-                               error_threshold = error_threshold) )
-
-ggplot2::ggsave(
-  p.metrics, file = here::here(
-    "figures", "supplementary", "metrics_ctsd_buffalo.png"),
-  bg = "white",
-  height = 8, width = 10, 
-  dpi = 300, device = "png")
-
 ### Gazelle ("long" velocity autocorrelation) -----------------------------
 
 p.resampled <- NULL
@@ -342,13 +309,3 @@ ggplot2::ggsave(
   height = 5, width = 10, 
   dpi = 300, device = "png")
 
-( p.metrics <- plotting_metrics(dat_gazelle,
-                                facet_var = "dti", 
-                                error_threshold = error_threshold) )
-
-ggplot2::ggsave(
-  p.metrics, file = here::here(
-    "figures", "supplementary", "metrics_ctsd_gazelle.png"),
-  bg = "white",
-  height = 8, width = 10, 
-  dpi = 300, device = "png")

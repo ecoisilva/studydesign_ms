@@ -73,13 +73,12 @@ dat_mean <- dat |>
     error_lci = calculate_ci(error, level = ci)$CI_low,
     error_uci = calculate_ci(error, level = ci)$CI_high,
     error_hdi_lci = bayestestR::ci(error, "HDI", ci = cri)$CI_low,
-    error_hdi_uci = bayestestR::ci(error, "HDI", ci = cri)$CI_high
-  ) |> 
+    error_hdi_uci = bayestestR::ci(error, "HDI", ci = cri)$CI_high) |> 
   dplyr::mutate(
     x_pos = m, y_pos = error_lci,
     color = ifelse(abs(error_mean) < error_threshold, pal$sea, pal$dgr))
 
-( p <- dat_summarized |>
+p <- dat_summarized |>
   ggplot2::ggplot(
     ggplot2::aes(x = m,
                  y = error_mean,
@@ -153,7 +152,7 @@ dat_mean <- dat |>
   ggplot2::geom_point(
     show.legend = TRUE,
     position = ggplot2::position_dodge(width = 0.4),
-    color = "black", shape = 21, size = 1.3) +
+    color = "black", shape = 23, size = 2) +
 
   ggplot2::labs(
     x = "<i>Population</i> sample size, <i>m</i>",
@@ -169,7 +168,6 @@ dat_mean <- dat |>
                           fill = pal_values,
                           size = 3),
       order = 1,
-      text.vjust = 4,
       label.vjust = 0.4,
       theme = ggplot2::theme(
         legend.key.width = unit(2, "lines"),
@@ -181,7 +179,7 @@ dat_mean <- dat |>
   ggplot2::scale_y_continuous(labels = scales::percent,
                               breaks = breaks_pretty()) +
   
-  set_theme(ft_size = 12) +
+  .theme(ft_size = 12) +
   ggplot2::theme(
     plot.title = ggtext::element_markdown(
       size = 14, margin = ggplot2::margin(b = 5)),
@@ -191,7 +189,8 @@ dat_mean <- dat |>
     legend.title = ggtext::element_markdown(
       family = "Roboto Condensed SemiBold",
       size = 10, margin = ggplot2::margin(r = 6, b = 0))) +
-  ggplot2::guides(shape = "none", color = "none") )
+  ggplot2::guides(shape = "none", color = "none")
+p
 
 ggplot2::ggsave(
   p, file = here::here(

@@ -30,8 +30,7 @@ out_dt <- rbind(
       est = "km/day" %#% est,
       lci = "km/day" %#% lci,
       uci = "km/day" %#% uci,
-      truth = "km/day" %#% truth)
-) |>
+      truth = "km/day" %#% truth)) |>
   dplyr::mutate(
     dplyr::across(
       type, ~factor(., levels = c("hr", "ctsd")))) |>

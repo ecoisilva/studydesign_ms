@@ -64,7 +64,7 @@ p.loocv <- out_dt |>
     name = paste0("Within error threshold (\u00B1",
                   error_threshold * 100, "%)?"),
     values = pal_values, drop = FALSE) +
-  set_theme()
+  .theme()
 p.loocv
 
 ggplot2::ggsave(
@@ -76,42 +76,42 @@ ggplot2::ggsave(
 
 out_dt <- .prepare_sampling(out_dt, both_pars = TRUE)
 
-p.loocv.summ <- out_dt |> 
-  dplyr::group_by(par) |> 
+p.loocv.summ <- out_dt |>
+  dplyr::group_by(par) |>
   dplyr::summarize(
     error_mean = mean(error, na.rm = TRUE),
     error_lci = calculate_ci(error, level = 0.95)$CI_low,
-    error_uci = calculate_ci(error, level = 0.95)$CI_high) |> 
+    error_uci = calculate_ci(error, level = 0.95)$CI_high) |>
   dplyr::mutate(overlaps = dplyr::between(
-    error_mean, -error_threshold, error_threshold)) |> 
+    error_mean, -error_threshold, error_threshold)) |>
   dplyr::mutate(overlaps = factor(overlaps,
-                                  levels = c("TRUE", "FALSE"))) |> 
-  
+                                  levels = c("TRUE", "FALSE"))) |>
+
   ggplot2::ggplot(
     ggplot2::aes(x = par,
                  y = error_mean,
                  group = par,
                  color = overlaps)) +
-  
+
   ggplot2::geom_hline(
     yintercept = error_threshold,
     alpha = 0.5, linetype = "dotted", linewidth = 0.6) +
   ggplot2::geom_hline(
     yintercept = -error_threshold,
     alpha = 0.5, linetype = "dotted", linewidth = 0.6) +
-  
+
   ggplot2::geom_hline(
     yintercept = 0,
     linewidth = 0.3,
     linetype = "solid") +
-  
+
   ggplot2::geom_linerange(
     ggplot2::aes(ymin = error_lci,
                  ymax = error_uci),
     show.legend = TRUE,
     color = "black",
     linewidth = 0.5) +
-  
+
   ggplot2::geom_point(
     aes(color = overlaps,
         fill = overlaps),
@@ -119,12 +119,11 @@ p.loocv.summ <- out_dt |>
     show.legend = TRUE,
     shape = 21,
     size = 3) +
-  
+
   ggplot2::labs(
     x = "LOOCV iteration",
     y = "Relative error (%)") +
-  
-  # ggplot2::scale_x_continuous(breaks = breaks_pretty()) +
+
   ggplot2::scale_y_continuous(labels = scales::percent,
                               breaks = breaks_pretty()) +
   ggplot2::scale_color_manual(
@@ -135,45 +134,45 @@ p.loocv.summ <- out_dt |>
     name = paste0("Within error threshold (\u00B1",
                   error_threshold * 100, "%)?"),
     values = pal_values, drop = FALSE) +
-  set_theme()
+  .theme()
 p.loocv.summ
 
-p.loocv.summ <- out_dt |> 
-  dplyr::group_by(par) |> 
+p.loocv.summ <- out_dt |>
+  dplyr::group_by(par) |>
   dplyr::summarize(
     error_mean = mean(error, na.rm = TRUE),
     error_lci = calculate_ci(error, level = 0.95)$CI_low,
-    error_uci = calculate_ci(error, level = 0.95)$CI_high) |> 
+    error_uci = calculate_ci(error, level = 0.95)$CI_high) |>
   dplyr::mutate(overlaps = dplyr::between(
-    error_mean, -error_threshold, error_threshold)) |> 
+    error_mean, -error_threshold, error_threshold)) |>
   dplyr::mutate(overlaps = factor(overlaps,
-                                  levels = c("TRUE", "FALSE"))) |> 
-  
+                                  levels = c("TRUE", "FALSE"))) |>
+
   ggplot2::ggplot(
     ggplot2::aes(x = error_mean,
                  y = par,
                  group = par,
                  color = overlaps)) +
-  
+
   ggplot2::geom_vline(
     xintercept = error_threshold,
     alpha = 0.5, linetype = "dotted", linewidth = 0.6) +
   ggplot2::geom_vline(
     xintercept = -error_threshold,
     alpha = 0.5, linetype = "dotted", linewidth = 0.6) +
-  
+
   ggplot2::geom_vline(
     xintercept = 0,
     linewidth = 0.3,
     linetype = "solid") +
-  
+
   ggplot2::geom_linerange(
     ggplot2::aes(xmin = error_lci,
                  xmax = error_uci),
     show.legend = TRUE,
     color = "black",
     linewidth = 0.5) +
-  
+
   ggplot2::geom_point(
     aes(color = overlaps,
         fill = overlaps),
@@ -181,12 +180,11 @@ p.loocv.summ <- out_dt |>
     show.legend = TRUE,
     shape = 21,
     size = 3) +
-  
+
   ggplot2::labs(
     x = "Relative error (%)",
     y = "") +
-  
-  # ggplot2::scale_x_continuous(breaks = breaks_pretty()) +
+
   ggplot2::scale_x_continuous(labels = scales::percent,
                               breaks = breaks_pretty()) +
   ggplot2::scale_color_manual(
@@ -197,5 +195,5 @@ p.loocv.summ <- out_dt |>
     name = paste0("Within error threshold (\u00B1",
                   error_threshold * 100, "%)?"),
     values = pal_values, drop = FALSE) +
-  set_theme()
+  .theme()
 p.loocv.summ

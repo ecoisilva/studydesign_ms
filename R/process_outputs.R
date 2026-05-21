@@ -39,14 +39,14 @@ for (group in groups) {
   message(group)
   
   for (f in seq_along(rawfiles[[group]])) {
-    message(paste("--", f, "out of", length(rawfiles)))
+    message(paste("—", f, "out of", length(rawfiles[[group]])))
     
     target <- strsplit(filenames[[group]][[f]], "_")[[1]][2]
     
-    if (target == "hr") error_threshold <- 0.05
-    else error_threshold <- 0.1
+    error_threshold <- ifelse(target == "hr", 0.05, 0.01)
     
     ( start_time <- Sys.time() )
+    rawfiles[[group]][[f]]$add_ind_var <- TRUE
     out <- run_meta(rawfiles[[group]][[f]], 
                     set_target = target,
                     iter_step = iter_step)
@@ -54,8 +54,7 @@ for (group in groups) {
     
     out$overlaps <- factor(
       dplyr::between(out$error, -error_threshold, error_threshold),
-      levels = c(TRUE, FALSE)
-    )
+      levels = c(TRUE, FALSE))
     
     p.optimal <- out |>
       ggplot2::ggplot(
@@ -102,7 +101,7 @@ for (group in groups) {
         colors = pal_error(100),
         labels = scales::percent,
         limits = c(0, 1)) +
-      set_theme() +
+      .theme() +
       ggplot2::theme(
         panel.grid.major = ggplot2::element_blank(),
         panel.grid.minor = ggplot2::element_blank(),

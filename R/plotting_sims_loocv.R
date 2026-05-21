@@ -7,7 +7,6 @@ img_buffalo <- readPNG(
 img_gazelle <- readPNG(
   here::here("documentation", "ext_images", "mongolian_gazelle.png"))
 
-# -------------------------------------------------------------------------
 # SIMULATION OUTPUTS with LOOCV: ------------------------------------------
 
 error_threshold <- 0.05
@@ -17,13 +16,11 @@ out_dt <- .prepare_sampling(out_dt, both_pars = TRUE)
 p.overview <- out_dt |> 
   dplyr::group_by(species, type, par) |> 
   dplyr::mutate(
-    correct_count = abs(error) < error_threshold
-  ) |>
+    correct_count = abs(error) < error_threshold) |>
   dplyr::summarize(
     n = n(),
     correct = sum(correct_count),
-    correctness_rate = correct / n
-  ) |> 
+    correctness_rate = correct / n) |> 
   
   ggplot2::ggplot(
     ggplot2::aes(x = correctness_rate,
@@ -65,12 +62,13 @@ p.overview <- out_dt |>
     midpoint = 0.5,
     limits = c(0, 1),
     labels = scales::percent_format()) +
-  set_theme() +
+  .theme() +
   ggplot2::guides(
     color = ggplot2::guide_colorbar(
       barheight = 0.5)) +
   ggplot2::theme(
     legend.text = ggplot2::element_text(size = 9))
+p.overview
 
 ggplot2::ggsave(
   p.overview, file = here::here("figures",

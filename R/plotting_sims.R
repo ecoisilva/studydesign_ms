@@ -103,7 +103,7 @@ dat_buffalo_mean <- dat_buffalo |>
     ggplot2::scale_y_continuous(labels = scales::percent,
                                 breaks = breaks_pretty()) +
     ggplot2::scale_color_manual(values = pal_values, drop = FALSE) +
-    set_theme() )
+    .theme() )
 
 ggplot2::ggsave(
   p1, file = here::here(
@@ -193,7 +193,7 @@ dat_gazelle_mean <- dat_gazelle |>
     ggplot2::scale_y_continuous(labels = scales::percent,
                                 breaks = breaks_pretty()) +
     ggplot2::scale_color_manual(values = pal_values, drop = FALSE) +
-    set_theme() )
+    .theme() )
 
 ggplot2::ggsave(
   p2, file = here::here(
@@ -286,7 +286,7 @@ dat_buffalo_mean <- dat_buffalo |>
     ggplot2::scale_y_continuous(labels = scales::percent,
                                 breaks = breaks_pretty()) +
     ggplot2::scale_color_manual(values = pal_values, drop = FALSE) +
-    set_theme() )
+    .theme() )
 
 ggplot2::ggsave(
   p3, file = here::here(
@@ -378,7 +378,7 @@ dat_gazelle_mean <- dat_gazelle |>
     ggplot2::scale_y_continuous(labels = scales::percent,
                                 breaks = breaks_pretty()) +
     ggplot2::scale_color_manual(values = pal_values, drop = FALSE) +
-    set_theme() )
+    .theme() )
 
 ggplot2::ggsave(
   p4, file = here::here(
