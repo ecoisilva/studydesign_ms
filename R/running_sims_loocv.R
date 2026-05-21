@@ -56,7 +56,7 @@ out_dt <- rbind(
 
 nms <- .extract_sampling(c(filenames_hr,
                            filenames_sd), both_pars = TRUE)
-out_dt$par <- factor(out_dt$par, levels = nms)
+out_dt$par <- factor(out_dt$par, levels = unique(nms))
 
 saveRDS(out_dt, file = here::here("outputs", "dt_loocv_sims.rds"))
 

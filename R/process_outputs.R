@@ -128,9 +128,9 @@ for (group in groups) {
       width = 6, height = 5, 
       dpi = 600, device = "png")
     
-    # base::saveRDS(
-    #   out, file = here::here("data", "processed",
-    #                          paste0(filename, ".rds")))
+    base::saveRDS(
+      out, file = here::here("data", "processed",
+                             paste0(filename, ".rds")))
     
     message("...done!")
   }
