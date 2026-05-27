@@ -3,7 +3,8 @@
 
 [![Project Status:
 Active](https://img.shields.io/badge/Status-active-%23009DA0)](https://www.repostatus.org/#active)
-[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.16676569-%23009DA0)](https://doi.org/10.5281/zenodo.16676569)
+[![bioRxiv](https://img.shields.io/badge/bioRxiv-2025.07.30.667390-%23009DA0)](https://doi.org/10.1101/2025.07.30.667390)
+[![DOI](https://img.shields.io/badge/Zenodo-10.5281%2Fzenodo.16676569-%23009DA0)](https://doi.org/10.5281/zenodo.16676569)
 
 ## Table of contents
 
@@ -146,6 +147,3 @@ please cite:
 
 [![CC BY
 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by/4.0/)
-
-This work is licensed under a [Creative Commons Attribution 4.0
-International License](http://creativecommons.org/licenses/by/4.0/).
